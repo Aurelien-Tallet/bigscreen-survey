@@ -27,6 +27,6 @@ class TypesSeeder extends Seeder
             Type::create([
                 'name' => $type
             ]);
-        }   
+        }
     }
 }

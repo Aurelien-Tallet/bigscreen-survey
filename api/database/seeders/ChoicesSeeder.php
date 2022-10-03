@@ -4,17 +4,18 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Choice;
 use App\Models\Type;
 use Illuminate\Database\Seeder;
 
-class TypesSeeder extends Seeder
+class ChoicesSeeder extends Seeder
 {
+
+
     /**
-     * Seed the application's database.
-     *
-     * @return void
+     *  List of existing form's Choices
      */
-    const CHOICE = 
+    const CHOICE =
     [
         "Oui",
         "Non",
@@ -41,11 +42,18 @@ class TypesSeeder extends Seeder
         "Jouer en solo",
         "Jouer en équipe",
     ];
-    
+
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
     public function run()
     {
         foreach (self::CHOICE as $choice) {
-            Type::create([
+
+            // Create Choice
+            Choice::create([
                 'response' => $choice
             ]);
         }
