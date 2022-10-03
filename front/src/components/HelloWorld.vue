@@ -1,10 +1,20 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true,
+<script >
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
   },
-});
+  methods: {
+    sayHello() {
+      console.log('Hello World');
+    }
+  },
+  computed: {
+    computedMsg() {
+      return this.msg + '!';
+    }
+  }
+}
 </script>
 
 <template>
@@ -35,6 +45,7 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+
   .greetings h1,
   .greetings h3 {
     text-align: left;
