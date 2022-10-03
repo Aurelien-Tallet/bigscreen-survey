@@ -2,9 +2,7 @@ const store = {
   namespaced: true,
   state: {
     user: {
-      data: {
-        products: [],
-      },
+      data: {},
       token: null,
     },
   },
