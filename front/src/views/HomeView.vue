@@ -13,8 +13,8 @@ export default {
   },
 
   async created() {
-    this.forms = await FormDataService.get(1);
-    console.log(this.forms)
+    this.form = await FormDataService.get(1);
+    this.questions = this.form[0].questions;
   },
 };
 </script>

@@ -1,6 +1,6 @@
 import axiosInstance from "@/api";
 
-class PairDataService {
+class FormDataService {
   async getAll() {
     return (await axiosInstance.get("/forms")).data;
   }
@@ -8,4 +8,4 @@ class PairDataService {
     return (await axiosInstance.get(`/forms/${id}`)).data;
   }
 }
-export default new PairDataService();
+export default new FormDataService();

@@ -1,6 +1,6 @@
 import axios from "axios";
 import store from "../store/modules/user";
-const axiosInstance = axios.create({
+const instance = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
   headers: {
     "Content-Type": "application/json",
@@ -13,4 +13,4 @@ const axiosInstance = axios.create({
 //   return config;
 // });
 
-export default axiosInstance;
+export default instance;
