@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Choice;
 use App\Models\Question;
 use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -10,9 +11,6 @@ use Illuminate\Database\Seeder;
 class QuestionsSeeder extends Seeder
 {
 
-    /**
-     *  List of existing form's questions with according Type name
-     */
     const QUESTIONS =
         array(
             ["Votre adresse mail","textarea"],
@@ -50,13 +48,18 @@ class QuestionsSeeder extends Seeder
         foreach (self::QUESTIONS as $index => $question) {
             // Get the right Type id based on question Type name
             $type = array_search($question[1], array_column($types, 'name'));
-
             // Create Question
-            Question::create([
+            $Question = Question::create([
                 'name' => "Question " . $index+1 . "/" . count(self::QUESTIONS), // Add the index in the Question
                 'body' => $question[1],
                 'type_id' => $types[$type]->id
             ]);
+            if($question[1] == "choice"){
+                // $question_id = $Question->id;
+                $choice_id = Choice::where('response', $question[0])->first()->id;
+                dd($Question->id);
+
+            }
         }
     }
 }

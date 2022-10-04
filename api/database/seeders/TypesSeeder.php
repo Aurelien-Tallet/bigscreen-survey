@@ -5,17 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Type;
+use Database\Data\Data;
 use Illuminate\Database\Seeder;
-
 class TypesSeeder extends Seeder
 {
-    // Current's existing Types of Questions 
-    const TYPES = [
-        'textarea',
-        'choice',
-        'rating'
-    ];
-    
     /**
      * Seed the application's database.
      *
@@ -23,7 +16,7 @@ class TypesSeeder extends Seeder
      */
     public function run()
     {
-        foreach (self::TYPES as $type) {
+        foreach (Data::TYPES as $type) {
             Type::create([
                 'name' => $type
             ]);
