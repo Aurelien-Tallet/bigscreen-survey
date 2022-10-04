@@ -43,108 +43,108 @@ class Data
     // List of existing form's questions with according Type name
     const QUESTIONS = [
         [
-            "type" => 0,
+            "type" => self::TYPES[0],
             "question" => "Votre adresse mail",
         ],
 
         [
-            "type" => 0,
+            "type" => self::TYPES[0],
             "question" => "Votre âge",
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Votre sexe",
             "choices" => [2, 3, 4],
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Nombre de personne dans votre foyer (adulte & enfants)",
         ],
 
         [
-            "type" => 0,
+            "type" => self::TYPES[0],
             "question" => "Votre profession",
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Quel marque de casque VR utilisez-vous ?",
             "choices" => [7, 8, 9, 10, 11],
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Sur quel magasin d’application achetez vous des contenus VR ?",
             "choices" => [12, 13, 14, 15],
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Quel casque envisagez-vous d’acheter dans un futur proche ?",
             "choices" => [7, 16, 17, 18, 5],
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Au sein de votre foyer, combien de personnes utilisent votre casque VR pour regarder Bigscreen ?",
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Vous utilisez principalement Bigscreen pour :",
             "choices" => [19, 20, 21, 22, 23],
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Combien donnez-vous de point pour la qualité de l’image sur Bigscreen ?",
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Combien donnez-vous de point pour le confort d’utilisation de l’interface Bigscreen ?",
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Combien donnez-vous de point pour la connexion réseau de Bigscreen ?",
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Combien donnez-vous de point pour la qualité des graphismes 3D dans Bigscreen ?",
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Combien donnez-vous de point pour la qualité audio dans Bigscreen ?",
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Aimeriez vous avoir des notifications plus précises au cours de vos sessions Bigscreen ?",
             "choices" => [0, 1],
         ],
 
         [
-            "type" => 1,
+            "type" => self::TYPES[1],
             "question" => "Aimeriez vous pouvoir inviter un ami à rejoindre votre session via son smartphone ?",
             "choices" => [0, 1],
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Aimeriez vous pouvoir enregistrer des émissions TV pour pouvoir les regarder ultérieurement ?",
         ],
 
         [
-            "type" => 2,
+            "type" => self::TYPES[2],
             "question" => "Aimeriez-vous jouer à des jeux exclusifs sur votre Bigscreen ?",
         ],
         [
-            "type" => 0,
+            "type" => self::TYPES[0],
             "question" => "Quelle nouvelle fonctionnalité devrait exister sur Bigscreen ?",
         ],
     ];
