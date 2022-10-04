@@ -4,16 +4,16 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Http\Traits\GlobalTrait;
 use App\Models\Choice;
 use App\Models\Type;
-use Database\Data\Data;
 use Illuminate\Database\Seeder;
 
 class ChoicesSeeder extends Seeder
 {
 
 
-  
+
 
     /**
      * Seed the application's database.
@@ -22,7 +22,8 @@ class ChoicesSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Data::CHOICES as $choice) {
+        $choices = GlobalTrait::getChoices();
+        foreach ($choices as $choice) {
 
             // Create Choice
             Choice::create([

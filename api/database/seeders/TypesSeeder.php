@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Http\Traits\GlobalTrait;
 use App\Models\Type;
-use Database\Data\Data;
 use Illuminate\Database\Seeder;
 class TypesSeeder extends Seeder
 {
@@ -16,7 +16,8 @@ class TypesSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Data::TYPES as $type) {
+        $types = GlobalTrait::getTypes();
+        foreach ($types as $type) {
             Type::create([
                 'name' => $type
             ]);
