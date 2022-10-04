@@ -23,6 +23,7 @@ class QuestionsSeeder extends Seeder
         $typesCollection = Type::all();
         $types = $typesCollection->all();
         $questions = GlobalTrait::getQuestions();
+        $choices = GlobalTrait::getChoices();
 
         foreach ( $questions as $index => $question) {
             // Get the right Type id based on question Type name
@@ -34,7 +35,8 @@ class QuestionsSeeder extends Seeder
                 'type_id' => $types[$type]->id
             ]);
             if($question["type"] == "choice"){
-                foreach ($question["choices"] as $choice){
+                foreach ($question["choices"] as $choiceIndex){
+                    $choice = Choice::where('name',$choices[$choiceIndex]);
                     dd($choice);
                 }
             }
