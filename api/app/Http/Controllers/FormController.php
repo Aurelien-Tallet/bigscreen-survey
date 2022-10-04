@@ -14,7 +14,7 @@ class FormController extends Controller
      */
     public function index()
     {
-        //
+        return Form::all();
     }
 
     /**
@@ -44,9 +44,12 @@ class FormController extends Controller
      * @param  \App\Models\Form  $form
      * @return \Illuminate\Http\Response
      */
-    public function show(Form $form)
+    public function show($id)
     {
-        //
+
+        return Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->get();
+
+
     }
 
     /**

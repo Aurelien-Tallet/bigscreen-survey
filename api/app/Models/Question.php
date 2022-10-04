@@ -13,9 +13,9 @@ class Question extends Model
     protected $fillable = [
         'question',
         'type_id',
-        'choice_id',
+        'choice_id'
     ];
-
+    
     public function type()
     {
         return $this->belongsTo(Type::class);
