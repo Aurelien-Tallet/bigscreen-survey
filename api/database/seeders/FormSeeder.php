@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Http\Traits\GlobalTrait;
-use App\Models\Choice;
-use App\Models\Question;
-use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Http\Traits\GlobalTrait;
+use App\Models\Choice;
+use App\Models\Form;
+use App\Models\Question;
+use App\Models\Type;
 
-class QuestionsSeeder extends Seeder
+class FormSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -19,12 +19,16 @@ class QuestionsSeeder extends Seeder
      */
     public function run()
     {
-        // Retrieving array of Types
         $typesCollection = Type::all();
         $types = $typesCollection->all();
-        $questions = GlobalTrait::getQuestions();
+        $questions = GlobalTrait::getDefaultFormQuestions();
         $globalChoices = GlobalTrait::getChoices();
 
+        $formInfos = GlobalTrait::getDefaultFormInformations();
+        $Form = Form::create([
+            'entitled' => $formInfos["entitled"],
+            'description' => $formInfos["description"],
+        ]);
         foreach ($questions as $index => $question) {
             // Get the right Type id based on question Type name
             $type = array_search($question["type"], array_column($types, 'name'));
@@ -34,6 +38,7 @@ class QuestionsSeeder extends Seeder
                 'body' => $question["body"],
                 'type_id' => $types[$type]->id
             ]);
+            $Form->questions()->attach($Question->id);
             if ($question["type"] == "choice") {
                 $questionChoices = [];
                 foreach ($question["choices"] as $choice) {
