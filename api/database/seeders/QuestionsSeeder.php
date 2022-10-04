@@ -23,20 +23,26 @@ class QuestionsSeeder extends Seeder
         $typesCollection = Type::all();
         $types = $typesCollection->all();
         $questions = GlobalTrait::getQuestions();
+        $globalChoices = GlobalTrait::getChoices();
 
-        foreach ( $questions as $index => $question) {
+        foreach ($questions as $index => $question) {
             // Get the right Type id based on question Type name
             $type = array_search($question["type"], array_column($types, 'name'));
             // Create Question
             $Question = Question::create([
-                'name' => "Question " . $index+1 . "/" . count($questions), // Add the index in the Question
+                'name' => "Question " . $index + 1 . "/" . count($questions), // Add the index in the Question
                 'body' => $question["body"],
                 'type_id' => $types[$type]->id
             ]);
-            if($question["type"] == "choice"){
-                foreach ($question["choices"] as $choice){
-                    dd($choice);
+            if ($question["type"] == "choice") {
+                $questionChoices = [];
+                foreach ($question["choices"] as $choice) {
+                    $questionChoices[] = $globalChoices[$choice];
                 }
+                $choices = Choice::whereIn('response', $questionChoices)->get();
+
+                // add in question_choice table id of question and question_id
+                $Question->choices()->sync($choices);
             }
         }
     }
