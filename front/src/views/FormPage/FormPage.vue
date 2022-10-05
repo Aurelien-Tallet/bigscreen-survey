@@ -25,7 +25,7 @@ export default {
   async created() {
     console.log("created")
     this.form = await FormDataService.get(1);
-    this.questions = this.form[0].questions;
+    this.questions = this.form.questions;
     this.questions.forEach(el =>{
       this.setQuestionComponent({ id: el.id, valid: false });
     });
