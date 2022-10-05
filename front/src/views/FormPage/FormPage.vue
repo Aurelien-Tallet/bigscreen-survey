@@ -13,7 +13,6 @@ export default {
     return {
       activeQuestion:0,
       questions: [],
-      validQuestions:0,
     };
   },
 
@@ -24,31 +23,33 @@ export default {
   },
 
   async created() {
+    console.log("created")
     this.form = await FormDataService.get(1);
     this.questions = this.form[0].questions;
     this.questions.forEach(el =>{
       this.setQuestionComponent({ id: el.id, valid: false });
-    })
-
+    });
   },
 };
 </script>
 
 <template>
-  <h1>FormPage - valids : {{validQuestions}}</h1>
   <form action="" class="questions-form">
     <ul class="questions-list">
       <Question
         v-for="(question, i) in questions"
         :key="i"
         :data="question"
-        :activeQuestion="activeQuestion"
         :questionIndex="i"
+        :activeQuestion="activeQuestion"
         :questionsLength="questions.length"
         @incrementIndex="activeQuestion++"
         @decrementIndex="activeQuestion--"
       />
     </ul>
+
+    <button :disabled="!this.$store.getters['form/isAllQuestionsValid']" class="cta" type="submit">Valider</button>
+
   </form>
 </template>
 

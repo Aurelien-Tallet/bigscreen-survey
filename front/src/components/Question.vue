@@ -1,4 +1,6 @@
 <script>
+import {createNamespacedHelpers} from "vuex";
+const { mapActions } = createNamespacedHelpers("form");
 export default {
   name: "single-question",
   props: {
@@ -18,6 +20,10 @@ export default {
   },
 
   methods: {
+
+    ...mapActions([
+      'setQuestionComponent',
+    ]),
     nextQuestion: function () {
       if (this.activeQuestion < this.questionsLength - 1 && this.active) {
         this.$emit("incrementIndex");
@@ -76,12 +82,14 @@ export default {
             this.value <= 5;
           break;
       }
+      isValid
+      ? this.setQuestionComponent({ id: this.data.id, valid: true })
+      : this.setQuestionComponent({ id: this.data.id, valid: false });
       return isValid;
     },
   },
 
   async created() {
-
   },
 };
 </script>

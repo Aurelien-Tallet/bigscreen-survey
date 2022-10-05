@@ -19,6 +19,12 @@ const store = {
   },
   getters: {
     questionsComponents: (state) => state.questionsComponents,
+    isAllQuestionsValid: (state) => {
+      const questions = state.questionsComponents;
+      let validCount = 0;
+      for (let key in questions) questions[key] && validCount++;
+      return validCount === Object.keys(questions).length;
+    },
   },
 };
 
