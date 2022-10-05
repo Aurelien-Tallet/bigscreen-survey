@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\SubmissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/forms', [FormController::class, 'index']);
+Route::get('/submission/{uuid}', [SubmissionController::class, 'show']);
 Route::get('/forms/{id}', [FormController::class, 'show']);
 Route::post('/forms/{id}', [FormController::class, 'submit']);

@@ -54,6 +54,10 @@ class FormController extends Controller
 
         return Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first();
     }
+    public function showSubmission($uuid){
+        return Submission::where('uuid', $uuid)->with('responses', 'responses.question', 'responses.question.choices')->first();
+    } 
+
     public function submit(Request $request, $id)
     {
 
@@ -63,6 +67,7 @@ class FormController extends Controller
                 'message' => 'The number of questions in the form is not the same as the number of questions in the response'
             ], 400);
         }
+
         $Responses = [];
         foreach ($formQuestions->questions as $key => $question) {
             switch ($question->type->name) {
@@ -90,7 +95,6 @@ class FormController extends Controller
                     if ($validator->fails()) {
                         return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
                     }
-
                     $response =
                         [
                             'response' => [
@@ -125,12 +129,12 @@ class FormController extends Controller
                     break;
             }
         }
-        $timestamp = microtime();
         $Submission = Submission::create([
             'form_id' => $id,
             'uuid' => Uuid::uuid4()->toString(),
             'created_at' => now()
         ]);
+
         foreach ($Responses as $response) {
            $resp = Response::create($response['response']);
            $Submission->responses()->attach($resp->id);
@@ -141,7 +145,6 @@ class FormController extends Controller
             }
         }
 
-        // attach the list ofresponses to the submission
         return response()->json([
             'message' => 'Form submitted successfully'
         ]);
