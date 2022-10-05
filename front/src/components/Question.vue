@@ -71,9 +71,9 @@ export default {
           break;
         case "rating":
           isValid =
-              typeof this.value === "number" &&
-              this.value >= 0 &&
-              this.value <= 5;
+            typeof this.value === "number" &&
+            this.value >= 0 &&
+            this.value <= 5;
           break;
       }
       return isValid;
@@ -81,6 +81,7 @@ export default {
   },
 
   async created() {
+
   },
 };
 </script>
@@ -92,19 +93,23 @@ export default {
       <p class="body">{{ this.data.body }}</p>
 
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
-        <input v-model="value" :maxlength="255"/>
-        <p class="char-left">{{charsLeft}} caractère{{charsLeft > 1 ? "s" : ""}} restant{{charsLeft > 1 ? "s" : ""}}</p>
+        <input v-model="value" :maxlength="255" />
+        <p class="char-left">
+          {{ charsLeft }} caractère{{ charsLeft > 1 ? "s" : "" }} restant{{
+            charsLeft > 1 ? "s" : ""
+          }}
+        </p>
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'rating'">
-        <input type="number" v-model.number="value" max="5" min="0"/>
+        <input type="number" v-model.number="value" max="5" min="0" />
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'choice'">
         <select v-model="value">
           <option disabled value="">Veuillez choisir une réponse</option>
           <option
-              v-for="(choice, i) in this.data.choices"
-              :key="i"
-              :value="choice.id"
+            v-for="(choice, i) in this.data.choices"
+            :key="i"
+            :value="choice.id"
           >
             {{ choice.response }}
           </option>
@@ -112,21 +117,21 @@ export default {
       </div>
     </div>
     <div class="single-question__footer">
-      <div class="message" v-if="!isValid">{{displayMessage()}}</div>
+      <div class="message" v-if="!isValid">{{ displayMessage() }}</div>
 
       <div class="single-question__actions">
         <button
-            class="cta action-cta"
-            @click.prevent="this.prevQuestion()"
-            v-if="this.questionIndex > 0"
+          class="cta action-cta"
+          @click.prevent="this.prevQuestion()"
+          v-if="this.questionIndex > 0"
         >
           Précedent
         </button>
         <button
-            class="cta action-cta"
-            @click.prevent="this.nextQuestion()"
-            v-if="this.questionIndex < this.questionsLength - 1"
-            :disabled="!this.isValid"
+          class="cta action-cta"
+          @click.prevent="this.nextQuestion()"
+          v-if="this.questionIndex < this.questionsLength - 1"
+          :disabled="!this.isValid"
         >
           Suivant
         </button>
