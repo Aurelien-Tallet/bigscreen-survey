@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
             $table->timestamp('created_at');
+
+            $table->foreignId('form_id')->constrained();
         });
     }
 

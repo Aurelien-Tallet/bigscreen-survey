@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
-            $table->longText('response', 255);
+            $table->longText('response', 255)->nullable();
 
             $table->foreignId('question_id')->constrained();
         });

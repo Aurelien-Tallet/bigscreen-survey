@@ -20,4 +20,10 @@ class Form extends Model
         return $this->belongsToMany(Question::class);
     }
 
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+
 }

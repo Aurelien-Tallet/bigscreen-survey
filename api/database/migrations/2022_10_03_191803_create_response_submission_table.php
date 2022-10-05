@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('response_choice', function (Blueprint $table) {
+        Schema::create('response_submission', function (Blueprint $table) {
             $table->id();
-            
+
+            $table->foreignId('submission_id')->constrained();
             $table->foreignId('response_id')->constrained();
-            $table->foreignId('choice_id')->constrained();
+
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('response_choice');
+        Schema::dropIfExists('response_submission');
     }
 };
