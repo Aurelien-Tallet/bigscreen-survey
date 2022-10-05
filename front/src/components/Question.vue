@@ -1,61 +1,83 @@
 <script>
-
-import axiosInstance from "../../utils";
-
 export default {
+  name: "single-question",
+  props: {
+    data: {
+      type: Object,
+    },
+    activeQuestion: {
+      type: Number,
+    },
+    questionsLength: {},
+    questionIndex: {},
+  },
   data() {
     return {
-      currencies: [],
-      id: null,
-      primary_currency: "",
-      secondary_currency: "",
-      rate: "",
-    }
+      value: "",
+    };
   },
 
   methods: {
-    async editPair() {
-      if (confirm('Voulez-vous vraiment éditer cette conversion?')) {
-        let {primary_currency, secondary_currency, rate,id} = this
-        await PairDataService.update(id,{primary_currency, secondary_currency, rate});
-        router.push('/')
+    nextQuestion: function () {
+      if (this.activeQuestion < this.questionsLength - 1) {
+        this.$emit("incrementIndex");
       }
-    }
+    },
+    prevQuestion: function () {
+      if (this.activeQuestion > 0) {
+        this.$emit("decrementIndex");
+      }
+    },
   },
 
-  async created() {
-    this.currencies = await CurrencyDataService.getAll()
-    const pair = await PairDataService.get(this.$route.params.id);
+  computed: {
+    hidden() {
+      return this.questionIndex < this.activeQuestion;
+    },
+    active() {
+      return this.questionIndex === this.activeQuestion;
+    },
+    zIndex() {
+      return this.questionsLength - this.questionIndex;
+    },
+  },
 
-    let {id, primary_currency, secondary_currency, rate} = pair;
-    this.id = id
-    this.primary_currency = primary_currency
-    this.secondary_currency = secondary_currency
-    this.rate = rate
-  }
-}
+  async created() {},
+};
 </script>
 
 <template>
-  <form @submit.prevent="editPair">
-    <label>Devise 1</label>
+  <li class="single-question" :class="{ hidden, active }" :style="{ zIndex }">
+    <div class="single-question__content">
+      <h3 class="title">{{ this.data.name }}</h3>
+      <p class="body">{{ this.data.body }}</p>
 
-    <select required v-model="primary_currency">
-      <option selected="false" v-for="(el,i) in currencies" :key="i" :value="el.id">{{ el.name }}</option>
-    </select>
-
-
-    <label>Devise 2</label>
-
-    <select required v-model="secondary_currency">
-      <option v-for="(el,i) in currencies" :key="i" :value="el.id">{{ el.name }}</option>
-    </select>
-
-    <label> Taux de change</label>
-    <input v-model="rate">
-
-
-    <button type="submit">Modifer</button>
-
-  </form>
+      <div v-if="this.data.type.name === 'textarea'">
+        <input v-model="value" />
+      </div>
+      <div v-else-if="this.data.type.name === 'rating'">
+        <input v-model.number="value" />
+      </div>
+      <div v-else-if="this.data.type.name === 'choice'">
+        <select v-model="value">
+          <option disabled value="">Veuillez choisir une réponse</option>
+          <option
+            v-for="(choice, i) in this.data.choices"
+            :key="i"
+            :value="choice.id"
+          >
+            {{ choice.response }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="single-question__actions">
+        <button class="cta action-cta" @click.prevent="this.prevQuestion()" v-if="this.questionIndex > 0">Précedent</button>
+        <button class="cta action-cta" @click.prevent="this.nextQuestion()" v-if="this.questionIndex < this.questionsLength - 1">Suivant</button>
+    </div>
+  </li>
 </template>
+
+<style lang="scss" scoped>
+@import "./Question.scss";
+</style>

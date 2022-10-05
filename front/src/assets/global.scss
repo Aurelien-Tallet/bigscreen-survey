@@ -1,0 +1,15 @@
+//FONTS
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+//COLORS
+$purple: #5400ff;
+$dark-purple:#4100d0;
+
+//PLACEHOLDERS
+%pills{
+  border-radius: 9999999999px;
+}
+
+
+//IMPORTS
+@import "components/inputs.scss";
