@@ -1,6 +1,7 @@
 input,button,a{
   outline: none;
   border: 0;
+  user-select: none;
 }
 input,select{
   max-height: 50px;
@@ -28,7 +29,6 @@ select{
   &:disabled{
     opacity: 0.5;
     pointer-events: none;
-    user-select: none;
   }
   &:not(:disabled):hover{
     background-color: $dark-purple;
