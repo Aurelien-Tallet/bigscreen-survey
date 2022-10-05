@@ -140,7 +140,7 @@ class FormController extends Controller
                 $resp->choices()->sync($choice->id);
             }
         }
-   
+
         // attach the list ofresponses to the submission
         return response()->json([
             'message' => 'Form submitted successfully'
