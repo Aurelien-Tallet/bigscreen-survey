@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Form;
+use App\Models\Question;
 use App\Models\Response;
 use App\Models\Submission;
 use Illuminate\Http\Request;
@@ -51,12 +52,15 @@ class FormController extends Controller
      */
     public function show($id)
     {
-
         return Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first();
+    }
+    public function getQuestions($id){
+        $questions = Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first()->only('questions');
+        return $questions['questions'];
     }
     public function showSubmission($uuid){
         return Submission::where('uuid', $uuid)->with('responses', 'responses.question', 'responses.question.choices')->first();
-    } 
+    }
 
     public function submit(Request $request, $id)
     {

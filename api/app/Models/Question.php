@@ -26,6 +26,11 @@ class Question extends Model
         return $this->belongsToMany(Choice::class)->withPivot('question_id', 'choice_id');
     }
 
+    public function form()
+    {
+        return $this->hasOne(Form::class)->withPivot('question_id','form_id');
+    }
+
     public function responses()
     {
         return $this->hasMany(Response::class);
