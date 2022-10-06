@@ -2,7 +2,8 @@
 import FormDataService from "@/services/FormDataService";
 import Question from "@/components/Question.vue";
 import {createNamespacedHelpers} from "vuex";
-const { mapActions } = createNamespacedHelpers("form");
+
+const {mapActions} = createNamespacedHelpers("form");
 
 export default {
   name: "form-page",
@@ -11,7 +12,7 @@ export default {
   },
   data() {
     return {
-      activeQuestion:0,
+      activeQuestion: 0,
       questions: [],
     };
   },
@@ -19,32 +20,34 @@ export default {
   methods: {
     ...mapActions([
       'setQuestionComponent',
-    ])
+    ]),
+    handleSubmit: function () {
+
+    }
   },
 
   async created() {
-    console.log("created")
     this.form = await FormDataService.get(1);
-    this.questions = this.form[0].questions;
-    this.questions.forEach(el =>{
-      this.setQuestionComponent({ id: el.id, valid: false });
+    this.questions = this.form.questions;
+    this.questions.forEach(el => {
+      this.setQuestionComponent({id: el.id, valid: false});
     });
   },
 };
 </script>
 
 <template>
-  <form action="" class="questions-form">
+  <form action="" class="questions-form" @submit.prevent="handleSubmit">
     <ul class="questions-list">
       <Question
-        v-for="(question, i) in questions"
-        :key="i"
-        :data="question"
-        :questionIndex="i"
-        :activeQuestion="activeQuestion"
-        :questionsLength="questions.length"
-        @incrementIndex="activeQuestion++"
-        @decrementIndex="activeQuestion--"
+          v-for="(question, i) in questions"
+          :key="i"
+          :data="question"
+          :questionIndex="i"
+          :activeQuestion="activeQuestion"
+          :questionsLength="questions.length"
+          @incrementIndex="activeQuestion++"
+          @decrementIndex="activeQuestion--"
       />
     </ul>
 
