@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/forms', [FormController::class, 'index']);
 Route::get('/forms/{id}', [FormController::class, 'show']);
+Route::post('/forms/{id}', [FormController::class, 'submit']);
