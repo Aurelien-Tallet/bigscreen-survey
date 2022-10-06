@@ -2,6 +2,12 @@
 import Pie from "@/components/Pie/Pie.vue";
 import Radar from "@/components/Radar/Radar.vue";
 import FormDataService from "@/services/FormDataService";
+
+import {createNamespacedHelpers} from "vuex";
+import {deleteCookie, setCookie} from "@/utils/cookiesHelper";
+import router from "@/router";
+const {mapActions, mapGetters} = createNamespacedHelpers("user");
+
 export default {
   name: "home-page",
   components: {
@@ -53,6 +59,14 @@ export default {
       },
     ],
   }),
+  methods: {
+    ...mapActions(["setToken"]),
+    logout(){
+      this.setToken(null);
+      deleteCookie("access_token");
+      router.go("/login")
+    }
+  },
   computed: {
     isAllChartsLoaded() {
       return this.charts.every(({ data }) => data !== null);
@@ -76,6 +90,7 @@ export default {
 
 <template>
   <div class="">Home</div>
+  <button @click="logout" class="cta">Se déconnecter</button>
 
   <div v-if="isAllChartsLoaded" class="chart-wrapper">
     <Radar :data="groupQuestionsForRadar" />
