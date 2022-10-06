@@ -1,7 +1,7 @@
 <script>
-import {createNamespacedHelpers} from "vuex";
+import { createNamespacedHelpers } from "vuex";
 
-const {mapActions} = createNamespacedHelpers("form");
+const { mapActions } = createNamespacedHelpers("form");
 export default {
   name: "single-question",
   props: {
@@ -21,13 +21,9 @@ export default {
   },
 
   methods: {
-
-    ...mapActions([
-      'setQuestionComponent',
-      'setQuestionResponse'
-    ]),
+    ...mapActions(["setQuestionComponent", "setQuestionResponse"]),
     updateQuestion() {
-      const {id, type} = this.data
+      const { id, type } = this.data;
       this.setQuestionResponse({
         id,
         type,
@@ -87,20 +83,19 @@ export default {
           break;
         case "rating":
           isValid =
-              typeof this.response === "number" &&
-              this.response >= 0 &&
-              this.response <= 5;
+            typeof this.response === "number" &&
+            this.response >= 0 &&
+            this.response <= 5;
           break;
       }
       isValid
-          ? this.setQuestionComponent({id: this.data.id, valid: true})
-          : this.setQuestionComponent({id: this.data.id, valid: false});
+        ? this.setQuestionComponent({ id: this.data.id, valid: true })
+        : this.setQuestionComponent({ id: this.data.id, valid: false });
       return isValid;
     },
   },
 
-  async created() {
-  },
+  async created() {},
 };
 </script>
 
@@ -111,7 +106,7 @@ export default {
       <p class="body">{{ this.data.body }}</p>
 
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
-        <input v-model="response" :maxlength="255" @input="updateQuestion"/>
+        <input v-model="response" :maxlength="255" @input="updateQuestion" />
         <p class="char-left">
           {{ charsLeft }} caractère{{ charsLeft > 1 ? "s" : "" }} restant{{
             charsLeft > 1 ? "s" : ""
@@ -119,15 +114,21 @@ export default {
         </p>
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'rating'">
-        <input type="number" v-model.number="response" max="5" min="0" @input="updateQuestion"/>
+        <input
+          type="number"
+          v-model.number="response"
+          max="5"
+          min="0"
+          @input="updateQuestion"
+        />
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'choice'">
         <select v-model="response" @change="updateQuestion">
           <option disabled value="">Veuillez choisir une réponse</option>
           <option
-              v-for="(choice, i) in this.data.choices"
-              :key="i"
-              :value="choice.response"
+            v-for="(choice, i) in this.data.choices"
+            :key="i"
+            :value="choice.response"
           >
             {{ choice.response }}
           </option>
@@ -139,17 +140,17 @@ export default {
 
       <div class="single-question__actions">
         <button
-            class="cta action-cta"
-            @click.prevent="this.prevQuestion()"
-            v-if="this.questionIndex > 0"
+          class="cta action-cta"
+          @click.prevent="this.prevQuestion()"
+          v-if="this.questionIndex > 0"
         >
           Précedent
         </button>
         <button
-            class="cta action-cta"
-            @click.prevent="this.nextQuestion()"
-            v-if="this.questionIndex < this.questionsLength - 1"
-            :disabled="!this.isValid"
+          class="cta action-cta"
+          @click.prevent="this.nextQuestion()"
+          v-if="this.questionIndex < this.questionsLength - 1"
+          :disabled="!this.isValid"
         >
           Suivant
         </button>

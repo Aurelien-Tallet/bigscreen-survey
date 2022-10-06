@@ -18,9 +18,6 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
-
-
-
 Route::get('/forms', [FormController::class, 'index']);
 Route::get('/submission/{uuid}', [SubmissionController::class, 'show']);
 Route::get('/forms/{id}', [FormController::class, 'show']);
@@ -30,6 +27,7 @@ Route::prefix('data')->group(function () {
     Route::get('question/{id}', [QuestionController::class, 'getResponses']);
     Route::get('submissions/{formId}', [FormController::class, 'getAllSubmissions']);
 });
+
 // Auth
 Route::prefix('auth')->group(function () {
     Route::post('signup', [AuthController::class, "signup"])->name('auth.signup');
