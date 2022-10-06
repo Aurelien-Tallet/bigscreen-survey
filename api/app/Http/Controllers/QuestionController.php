@@ -24,7 +24,7 @@ class QuestionController extends Controller
      */
     public function getResponses($id)
     {
-        return Question::findOrfail($id)->with('type', 'choices','responses.choices','responses')->first();
+        return Question::where("id",$id)->with('type', 'choices','responses.choices','responses')->firstOrFail();
     }
 
     /**

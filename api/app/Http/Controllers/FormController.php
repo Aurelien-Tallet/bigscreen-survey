@@ -52,12 +52,12 @@ class FormController extends Controller
      */
     public function show($id)
     {
-        return Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first();
+        return Form::where('id',$id)->with('questions', 'questions.type', 'questions.choices')->firstOrFail();
     }
 
     public function getAllSubmissions($formId)
     {
-        $submissions =  Form::findOrFail($formId)->with('submissions','submissions.responses','submissions.responses.question','submissions.responses.question.type','submissions.responses.choices')->first()->only('submissions');
+        $submissions =  Form::where("id",$formId)->with('submissions','submissions.responses','submissions.responses.question','submissions.responses.question.type','submissions.responses.choices')->firstOrFail()->only('submissions');
         return $submissions['submissions'];
     }
 
