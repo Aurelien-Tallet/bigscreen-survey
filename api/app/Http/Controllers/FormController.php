@@ -55,10 +55,6 @@ class FormController extends Controller
         return Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first();
     }
 
-    public function showSubmission($uuid){
-        return Submission::where('uuid', $uuid)->with('responses', 'responses.question', 'responses.question.choices')->first();
-    }
-
     public function getAllSubmissions($formId)
     {
         $submissions =  Form::findOrFail($formId)->with('submissions','submissions.responses','submissions.responses.question','submissions.responses.question.type','submissions.responses.choices')->first()->only('submissions');
@@ -153,7 +149,8 @@ class FormController extends Controller
         }
 
         return response()->json([
-            'message' => 'Form submitted successfully'
+            'message' => 'Form submitted successfully',
+            'submission' => $Submission->uuid,
         ]);
     }
 

@@ -1,7 +1,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 
-const { mapActions } = createNamespacedHelpers("form");
+const { mapActions, mapGetters } = createNamespacedHelpers("form");
 export default {
   name: "single-question",
   props: {
@@ -60,6 +60,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(["isSubmitted"]),
     charsLeft() {
       return 255 - this.response.length;
     },
@@ -106,7 +107,12 @@ export default {
       <p class="body">{{ this.data.body }}</p>
 
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
-        <input v-model="response" :maxlength="255" @input="updateQuestion" />
+        <input
+            v-model="response"
+            :maxlength="255"
+            @input="updateQuestion"
+            :disabled="isSubmitted"
+        />
         <p class="char-left">
           {{ charsLeft }} caractère{{ charsLeft > 1 ? "s" : "" }} restant{{
             charsLeft > 1 ? "s" : ""
@@ -120,10 +126,12 @@ export default {
           max="5"
           min="0"
           @input="updateQuestion"
+          :disabled="isSubmitted"
         />
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'choice'">
-        <select v-model="response" @change="updateQuestion">
+        <select v-model="response" @change="updateQuestion"
+        :disabled="isSubmitted">
           <option disabled value="">Veuillez choisir une réponse</option>
           <option
             v-for="(choice, i) in this.data.choices"

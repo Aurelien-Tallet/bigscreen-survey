@@ -3,8 +3,12 @@ const store = {
   state: {
     questionsComponents: {},
     questionsResponses: [],
+    isSubmitted: false,
   },
   mutations: {
+    setSubmitted(state, value) {
+      state.isSubmitted = value;
+    },
     setQuestionComponent(state, value) {
       state.questionsComponents[value.id] = value.valid;
     },
@@ -25,6 +29,9 @@ const store = {
     },
   },
   actions: {
+    setSubmitted({commit}, bool) {
+      commit("setSubmitted", bool);
+    },
     setQuestionComponent({ commit }, questionComponent) {
       commit("setQuestionComponent", questionComponent);
     },
@@ -33,6 +40,7 @@ const store = {
     },
   },
   getters: {
+    isSubmitted: (state) => state.isSubmitted,
     questionsComponents: (state) => state.questionsComponents,
     questionsResponses: (state) => state.questionsResponses,
     isAllQuestionsValid: (state) => {

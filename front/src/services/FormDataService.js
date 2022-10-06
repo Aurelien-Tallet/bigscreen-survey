@@ -8,7 +8,7 @@ class FormDataService {
     return (await axiosInstance.get(`/forms/${id}`)).data;
   }
   async submit(data,id) {
-    return (await axiosInstance.post(`/forms/${id}`, data));
+    return (await axiosInstance.post(`/forms/${id}`, data)).data;
   }
 }
 export default new FormDataService();

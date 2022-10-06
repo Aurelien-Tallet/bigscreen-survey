@@ -12,7 +12,9 @@
   height: 275px;
   max-height: 275px;
   color: white;
-
+  &.response{
+    transition: none;
+  }
   .response-display {
     text-align: center;
     font-size: 25px;

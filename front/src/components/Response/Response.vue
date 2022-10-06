@@ -63,7 +63,7 @@ export default {
 </script>
 
 <template>
-  <li class="single-question" :class="{ hidden, active }" :style="{ zIndex }">
+  <li class="single-question response" :class="{ hidden, active }" :style="{ zIndex }">
     <div class="single-question__content">
       <h3 class="title">{{ this.data.question.name }}</h3>
       <p class="body">{{ this.data.question.body }}</p>
