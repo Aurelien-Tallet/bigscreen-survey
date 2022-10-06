@@ -54,10 +54,7 @@ class FormController extends Controller
     {
         return Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first();
     }
-    public function getQuestions($id){
-        $questions = Form::findOrfail($id)->with('questions', 'questions.type', 'questions.choices')->first()->only('questions');
-        return $questions['questions'];
-    }
+
     public function showSubmission($uuid){
         return Submission::where('uuid', $uuid)->with('responses', 'responses.question', 'responses.question.choices')->first();
     }
