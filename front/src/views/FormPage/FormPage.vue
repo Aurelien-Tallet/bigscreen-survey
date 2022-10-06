@@ -1,4 +1,5 @@
 <script>
+  <script>
 import FormDataService from "@/services/FormDataService";
 import Question from "@/components/Question/Question.vue";
 import {createNamespacedHelpers} from "vuex";
@@ -18,7 +19,9 @@ export default {
       origin: window.location.origin,
     };
   },
-
+  computed: {
+    ...mapGetters(["questionsResponses"]),
+  },
   methods: {
     ...mapActions(["setQuestionComponent", "setSubmitted"]),
     async handleSubmit() {

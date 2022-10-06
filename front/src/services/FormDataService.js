@@ -10,5 +10,8 @@ class FormDataService {
   async submit(data,id) {
     return (await axiosInstance.post(`/forms/${id}`, data)).data;
   }
+  async getResponses(id) {
+    return (await axiosInstance.get(`/data/question/${id}`)).data;
+  }
 }
 export default new FormDataService();
