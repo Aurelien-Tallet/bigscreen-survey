@@ -1,5 +1,6 @@
 <script>
 import Chart from "chart.js/auto";
+
 export default {
   name: "pie-component",
   props: {

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import FormPage from "@/views/FormPage/FormPage.vue";
 import SubmissionPage from "@/views/SubmissionPage/SubmissionPage.vue";
 import Login from "@/views/Admin/Login/Login.vue";
+import store from "@/store";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,7 @@ const router = createRouter({
       path: "/administration",
       name: "administration",
       component: () => import("@/views/Admin/HomePage/HomePage.vue"),
+      meta: {requiresAuth: true}
     },
     {
       path: "/administration/questionnaire",
@@ -33,5 +35,17 @@ const router = createRouter({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  const currentUser = store.state.user.token;
+  console.log(currentUser)
+  if ( to.meta.requiresAuth && !currentUser ) {
+    next({name: 'Login'})
+  } else if (to.path=== "/login" && currentUser) {
+    next('/administration')
+  } else {
+    next();
+  }
+})
 
 export default router;

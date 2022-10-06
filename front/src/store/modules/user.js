@@ -1,27 +1,22 @@
+import {cookieExist, getCookie} from "@/utils/cookiesHelper";
+
 const store = {
   namespaced: true,
   state: {
-    user: {
-      data: {},
-      token: null,
-    },
+    token: cookieExist("access_token") ?  getCookie("access_token") :  null,
   },
   mutations: {
     setToken(state, token) {
-      state.user.token = token;
+      state.token = token;
     },
   },
   actions: {
-    setUser({ commit }, user) {
-      commit("setUser", user);
-    },
     setToken({ commit }, token) {
       commit("setToken", token);
     },
   },
   getters: {
-    user: (state) => state.user.data,
-    token: (state) => state.user.token,
+    token: (state) => state.token,
   },
 };
 
