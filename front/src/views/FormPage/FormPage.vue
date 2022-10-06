@@ -1,9 +1,9 @@
 <script>
 import FormDataService from "@/services/FormDataService";
 import Question from "@/components/Question/Question.vue";
-import {createNamespacedHelpers} from "vuex";
+import { createNamespacedHelpers } from "vuex";
 
-const {mapActions, mapGetters} = createNamespacedHelpers("form");
+const { mapActions, mapGetters } = createNamespacedHelpers("form");
 
 export default {
   name: "form-page",
@@ -18,9 +18,6 @@ export default {
       origin: window.location.origin,
     };
   },
-  computed: {
-    ...mapGetters(["questionsResponses"]),
-  },
   methods: {
     ...mapActions(["setQuestionComponent", "setSubmitted"]),
     async handleSubmit() {
@@ -28,25 +25,25 @@ export default {
       if (this.$store.getters["form/isAllQuestionsValid"]) {
         try {
           const request = await FormDataService.submit(
-              {questions: this.$store.getters["form/questionsResponses"]},
-              this.form.id
+            { questions: this.$store.getters["form/questionsResponses"] },
+            this.form.id
           );
-          this.submission = request.submission
+          this.submission = request.submission;
         } catch (e) {
-          console.log(e)
+          console.log(e);
         }
       }
     },
   },
   computed: {
-    ...mapGetters(['isSubmitted'])
+    ...mapGetters(["isSubmitted"]),
   },
 
   async created() {
     this.form = await FormDataService.get(1);
     this.questions = this.form.questions;
     this.questions.forEach((el) => {
-      this.setQuestionComponent({id: el.id, valid: false});
+      this.setQuestionComponent({ id: el.id, valid: false });
     });
   },
 };
@@ -57,21 +54,23 @@ export default {
     <form action="" class="questions-form" @submit.prevent="handleSubmit">
       <ul class="questions-list">
         <Question
-            v-for="(question, i) in questions"
-            :key="i"
-            :data="question"
-            :questionIndex="i"
-            :activeQuestion="activeQuestion"
-            :questionsLength="questions.length"
-            @incrementIndex="activeQuestion++"
-            @decrementIndex="activeQuestion--"
+          v-for="(question, i) in questions"
+          :key="i"
+          :data="question"
+          :questionIndex="i"
+          :activeQuestion="activeQuestion"
+          :questionsLength="questions.length"
+          @incrementIndex="activeQuestion++"
+          @decrementIndex="activeQuestion--"
         />
       </ul>
 
       <button
-          :disabled="!this.$store.getters['form/isAllQuestionsValid'] || isSubmitted"
-          class="cta"
-          type="submit"
+        :disabled="
+          !this.$store.getters['form/isAllQuestionsValid'] || isSubmitted
+        "
+        class="cta"
+        type="submit"
       >
         Finaliser
       </button>
@@ -79,14 +78,16 @@ export default {
 
     <div class="form-message" v-if="isSubmitted">
       <p v-if="this.submission.length">
-        Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à votre investissement, nous vous
-        préparons
-        une application toujours plus facile à utiliser, seul ou en famille.<br>
-        Si vous désirez consulter vos réponse ultérieurement, vous pouvez consulter cette adresse: <a
-          :href="`${origin}/my-submission/${submission}`" target="_blank">{{ `${origin}/my-submission/${submission}` }}</a>
+        Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à
+        votre investissement, nous vous préparons une application toujours plus
+        facile à utiliser, seul ou en famille.<br />
+        Si vous désirez consulter vos réponse ultérieurement, vous pouvez
+        consulter cette adresse:
+        <a :href="`${origin}/my-submission/${submission}`" target="_blank">{{
+          `${origin}/my-submission/${submission}`
+        }}</a>
       </p>
     </div>
-
   </main>
 </template>
 

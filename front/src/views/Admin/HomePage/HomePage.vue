@@ -62,11 +62,7 @@ export default {
     },
     groupQuestionsForRadar() {
       const questions = this.charts.filter(({ type }) => type === "radar");
-      const group = questions.reduce((acc, { data }) => {
-        acc.push(data);
-        return acc;
-      }, []);
-      return group;
+      return questions.map(({ data }) => data);
     },
   },
   async created() {

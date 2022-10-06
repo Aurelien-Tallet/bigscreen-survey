@@ -14,7 +14,7 @@ export default {
       datasets: [
         {
           label: "Avis Qualité BigScreen",
-          data: [5, 1, 3, 1, 4],
+          data: [],
           fill: true,
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgb(54, 162, 235)",
