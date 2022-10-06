@@ -13,7 +13,7 @@ use App\Models\Type;
 class FormSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database with Forms.
      *
      * @return void
      */

@@ -15,6 +15,9 @@ class Form extends Model
         'description',
     ];
 
+    /*
+     * Model relations attachments
+     */
     public function questions()
     {
         return $this->belongsToMany(Question::class);

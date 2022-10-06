@@ -13,9 +13,12 @@ class Submission extends Model
         'form_id',
         'uuid',
         'created_at',
-    ];    
+    ];
     use HasFactory;
 
+    /*
+     * Model relations attachments
+     */
     public function form()
     {
         return $this->belongsTo(Form::class);

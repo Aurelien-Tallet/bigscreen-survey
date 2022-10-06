@@ -14,6 +14,9 @@ class Choice extends Model
         'response',
     ];
 
+    /*
+     * Model relations attachments
+     */
     public function question()
     {
         return $this->belongsTo(Question::class);

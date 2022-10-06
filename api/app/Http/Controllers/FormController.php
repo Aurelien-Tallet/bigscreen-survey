@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Form;
-use App\Models\Question;
 use App\Models\Response;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\Uuid;
 
 class FormController extends Controller
@@ -16,56 +14,41 @@ class FormController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function index()
     {
         return Form::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
+    /*
      * Display the specified resource.
-     *
-     * @param  \App\Models\Form  $form
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return Form::where('id',$id)->with('questions', 'questions.type', 'questions.choices')->firstOrFail();
+        return Form::where('id', $id)->with('questions', 'questions.type', 'questions.choices')->firstOrFail();
     }
 
+
+    /*
+     * Display all submissions related to a form based on form's ID
+     */
     public function getAllSubmissions($formId)
     {
-        $submissions =  Form::where("id",$formId)->with('submissions','submissions.responses','submissions.responses.question','submissions.responses.question.type','submissions.responses.choices')->firstOrFail()->only('submissions');
+        $submissions = Form::where("id", $formId)->with('submissions', 'submissions.responses', 'submissions.responses.question', 'submissions.responses.question.type', 'submissions.responses.choices')->firstOrFail()->only('submissions');
         return $submissions['submissions'];
     }
 
+
+    /*
+     * Form Submission
+     */
     public function submit(Request $request, $id)
     {
 
         $formQuestions = $this->show($id);
-        if(count($formQuestions->questions) != count($request->questions)) {
+        if (count($formQuestions->questions) != count($request->questions)) {
             return response()->json([
                 'message' => 'The number of questions in the form is not the same as the number of questions in the response'
             ], 400);
@@ -139,9 +122,9 @@ class FormController extends Controller
         ]);
 
         foreach ($Responses as $response) {
-           $resp = Response::create($response['response']);
-           $Submission->responses()->attach($resp->id);
-           if ($response['type'] == 'choice') {
+            $resp = Response::create($response['response']);
+            $Submission->responses()->attach($resp->id);
+            if ($response['type'] == 'choice') {
                 $question = $response['question'];
                 $choice = $question->choices->whereIn('response', $response['choice'])->first();
                 $resp->choices()->sync($choice->id);
@@ -152,39 +135,5 @@ class FormController extends Controller
             'message' => 'Form submitted successfully',
             'submission' => $Submission->uuid,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Form  $form
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Form $form)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Form  $form
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Form $form)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Form  $form
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Form $form)
-    {
-        //
     }
 }

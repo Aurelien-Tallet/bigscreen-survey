@@ -5,9 +5,9 @@ namespace App\Http\Traits;
 
 trait GlobalTrait
 {
-
-
-    // Get current's existing Types of Questions
+    /*
+     * Get current's existing Types of Questions
+     */
     public static function getTypes()
     {
         return [
@@ -17,7 +17,9 @@ trait GlobalTrait
         ];
     }
 
-    // Get list of existing form's Choices
+    /*
+     * Get list of existing form's Choices
+     */
     public static function getChoices()
     {
         return [
@@ -48,7 +50,9 @@ trait GlobalTrait
         ];
     }
 
-    // Get list of existing form's questions with according Type name
+    /*
+     * Get list of existing form's questions with according Type name
+     */
     public static function getDefaultFormQuestions()
     {
         $types = self::getTypes();
@@ -160,6 +164,10 @@ trait GlobalTrait
             ],
         ];
     }
+
+    /*
+     * Get first form information
+     */
     public static function getDefaultFormInformations()
     {
         return [

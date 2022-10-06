@@ -14,6 +14,9 @@ class Type extends Model
         'name',
     ];
 
+    /*
+     * Model relations attachments
+     */
     public function questions()
     {
         return $this->hasMany(Question::class);
