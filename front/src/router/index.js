@@ -26,26 +26,32 @@ const router = createRouter({
       path: "/administration",
       name: "administration",
       component: () => import("@/views/Admin/HomePage/HomePage.vue"),
-      meta: {requiresAuth: true}
+      meta: { requiresAuth: true },
     },
     {
-      path: "/administration/questionnaire",
-      name: "questionnaire",
+      path: "/administration/form",
+      name: "admin-form",
       component: () => import("@/views/Admin/FormPage/FormPage.vue"),
+    },
+    {
+      path: "/administration/submissions",
+      name: "admin-submissions",
+      component: () =>
+        import("@/views/Admin/SubmissionsPage/SubmissionsPage.vue"),
     },
   ],
 });
 
 router.beforeEach((to, from, next) => {
   const currentUser = store.state.user.token;
-  console.log(currentUser)
-  if ( to.meta.requiresAuth && !currentUser ) {
-    next({name: 'Login'})
-  } else if (to.path=== "/login" && currentUser) {
-    next('/administration')
+  console.log(currentUser);
+  if (to.meta.requiresAuth && !currentUser) {
+    next({ name: "Login" });
+  } else if (to.path === "/login" && currentUser) {
+    next("/administration");
   } else {
     next();
   }
-})
+});
 
 export default router;
