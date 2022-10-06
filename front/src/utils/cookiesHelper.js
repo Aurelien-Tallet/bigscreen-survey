@@ -19,6 +19,9 @@ export function getCookie(cname) {
   }
   return "";
 }
+export function deleteCookie(cname) {
+  document.cookie = cname+'=; Max-Age=-99999999;';
+}
 
 export function cookieExist(cname) {
   return getCookie(cname) != "";
