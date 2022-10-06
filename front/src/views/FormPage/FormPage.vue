@@ -1,5 +1,4 @@
 <script>
-  <script>
 import FormDataService from "@/services/FormDataService";
 import Question from "@/components/Question/Question.vue";
 import {createNamespacedHelpers} from "vuex";
