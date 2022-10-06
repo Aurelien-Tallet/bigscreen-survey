@@ -12,8 +12,8 @@ const router = createRouter({
       component: FormPage,
     },
     {
-      name: 'Login',
-      path: '/login',
+      name: "Login",
+      path: "/login",
       component: Login,
     },
     {
@@ -25,6 +25,11 @@ const router = createRouter({
       path: "/administration",
       name: "administration",
       component: () => import("@/views/Admin/HomePage/HomePage.vue"),
+    },
+    {
+      path: "/administration/questionnaire",
+      name: "questionnaire",
+      component: () => import("@/views/Admin/FormPage/FormPage.vue"),
     },
   ],
 });
