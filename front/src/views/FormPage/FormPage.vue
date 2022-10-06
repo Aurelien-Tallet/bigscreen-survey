@@ -2,7 +2,7 @@
 import FormDataService from "@/services/FormDataService";
 import Question from "@/components/Question/Question.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("form");
+const { mapActions, mapGetters } = createNamespacedHelpers("form");
 
 export default {
   name: "form-page",
@@ -15,17 +15,19 @@ export default {
       questions: [],
     };
   },
-
+  computed: {
+    ...mapGetters(["questionsResponses"]),
+  },
   methods: {
     ...mapActions(["setQuestionComponent"]),
     async handleSubmit() {
       if (this.$store.getters["form/isAllQuestionsValid"]) {
         const submission = await FormDataService.submit(
-          { questions: this.$store.getters["form/questionsResponses"] },
+          { questions: this.questionsResponses },
           this.form.id
         );
         console.log(submission);
-        console.log(this.$store.getters["form/questionsResponses"]);
+        console.log(this.questionsResponses);
       }
     },
   },
