@@ -15,7 +15,7 @@ class Question extends Model
         'type_id',
         'choice_id'
     ];
-    
+
     public function type()
     {
         return $this->belongsTo(Type::class);
@@ -24,5 +24,10 @@ class Question extends Model
     public function choices()
     {
         return $this->belongsToMany(Choice::class)->withPivot('question_id', 'choice_id');
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
     }
 }

@@ -18,6 +18,16 @@ class QuestionController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getResponses($id)
+    {
+        return Question::where('id', $id)->with('type', 'choices','responses.choices','responses')->get();
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
