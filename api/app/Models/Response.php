@@ -16,6 +16,9 @@ class Response extends Model
         'question_id',
     ];
 
+    /*
+     * Model relations attachments
+     */
     public function choices()
     {
         return $this->belongsToMany(Choice::class);

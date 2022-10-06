@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Submission;
-use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Submission $submission
-     * @return \Illuminate\Http\Response
+    /*
+     * Display a submission based on it's uuid
      */
     public function show($uuid)
     {

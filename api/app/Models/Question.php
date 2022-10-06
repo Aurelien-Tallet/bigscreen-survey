@@ -16,6 +16,9 @@ class Question extends Model
         'choice_id'
     ];
 
+    /*
+     * Model relations attachments
+     */
     public function type()
     {
         return $this->belongsTo(Type::class);
