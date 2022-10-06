@@ -11,12 +11,8 @@ use Illuminate\Database\Seeder;
 
 class ChoicesSeeder extends Seeder
 {
-
-
-
-
     /**
-     * Seed the application's database.
+     * Seed the application's database with Types.
      *
      * @return void
      */
