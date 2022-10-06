@@ -9,6 +9,11 @@ const router = createRouter({
       name: "formpage",
       component: FormPage,
     },
+    {
+      path: "/administration",
+      name: "administration",
+      component: () => import("@/views/Admin/HomePage/HomePage.vue"),
+    },
   ],
 });
 

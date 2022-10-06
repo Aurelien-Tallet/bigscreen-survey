@@ -1,7 +1,7 @@
 <script>
 import FormDataService from "@/services/FormDataService";
-import Question from "@/components/Question.vue";
-import {createNamespacedHelpers} from "vuex";
+import Question from "@/components/Question/Question.vue";
+import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("form");
 
 export default {
@@ -11,22 +11,20 @@ export default {
   },
   data() {
     return {
-      activeQuestion:0,
+      activeQuestion: 0,
       questions: [],
     };
   },
 
   methods: {
-    ...mapActions([
-      'setQuestionComponent',
-    ])
+    ...mapActions(["setQuestionComponent"]),
   },
 
   async created() {
-    console.log("created")
+    console.log("created");
     this.form = await FormDataService.get(1);
     this.questions = this.form.questions;
-    this.questions.forEach(el =>{
+    this.questions.forEach((el) => {
       this.setQuestionComponent({ id: el.id, valid: false });
     });
   },
@@ -48,8 +46,13 @@ export default {
       />
     </ul>
 
-    <button :disabled="!this.$store.getters['form/isAllQuestionsValid']" class="cta" type="submit">Valider</button>
-
+    <button
+      :disabled="!this.$store.getters['form/isAllQuestionsValid']"
+      class="cta"
+      type="submit"
+    >
+      Valider
+    </button>
   </form>
 </template>
 
