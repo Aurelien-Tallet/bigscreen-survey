@@ -30,5 +30,6 @@ Route::post('/forms/{id}', [FormController::class, 'submit']);
 
 Route::prefix('data')->group(function () {
     Route::get('question/{id}', [QuestionController::class, 'getResponses']);
-    Route::get('form/{id}', [FormController::class, 'getQuestions']);
+    Route::get('submissions/{formId}', [FormController::class, 'getAllSubmissions']);
+
 });

@@ -59,6 +59,12 @@ class FormController extends Controller
         return Submission::where('uuid', $uuid)->with('responses', 'responses.question', 'responses.question.choices')->first();
     }
 
+    public function getAllSubmissions($formId)
+    {
+        $submissions =  Form::findOrFail($formId)->with('submissions','submissions.responses','submissions.responses.question','submissions.responses.question.type','submissions.responses.choices')->first()->only('submissions');
+        return $submissions['submissions'];
+    }
+
     public function submit(Request $request, $id)
     {
 
