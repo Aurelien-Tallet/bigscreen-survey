@@ -1,5 +1,10 @@
 <script>
 import AuthDataService from "@/services/AuthDataService";
+import {createNamespacedHelpers} from "vuex";
+import {setCookie} from "@/utils/cookiesHelper";
+import router from "@/router";
+
+const {mapActions, mapGetters} = createNamespacedHelpers("user");
 
 export default {
   data() {
@@ -10,9 +15,16 @@ export default {
   },
 
   methods: {
+    ...mapActions(["setToken"]),
     async login() {
       const {email, password} = this;
-      const request = await AuthDataService.login({email, password})
+      const res = await AuthDataService.login({email, password})
+      const {access_token} = res.data
+      this.setToken(access_token)
+      setCookie("access_token", access_token, 1)
+      if (res.status === 200) {
+        router.push('/administration')
+      }
     }
   },
 }
