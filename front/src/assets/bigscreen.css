@@ -169,16 +169,6 @@ html {
     }
 }
 
-body {
-    min-width: 375px;
-    background: #141416;
-    font-family: "Poppins", sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #fcfcfd
-}
 
 a {
     text-decoration: none
@@ -4728,9 +4718,9 @@ to {
         -webkit-transform: translateY(0);
         transform: translateY(0);
         height: 254px;
-@media only screen and (max-width: 767px) {
-    height:177px
-}
+        @media only screen and (max-width: 767px) {
+            height:177px
+        }
 }
 to {
     -webkit-transform: translateY(-32px);

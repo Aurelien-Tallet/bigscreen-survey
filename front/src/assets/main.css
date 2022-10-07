@@ -1,3 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 @import "./bigscreen.css";
 @import "./reset.css";
+
+body{
+    background-color: #ededed;
+}

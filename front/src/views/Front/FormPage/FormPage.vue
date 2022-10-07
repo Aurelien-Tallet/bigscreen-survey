@@ -2,12 +2,15 @@
 import Question from "@/components/Question/Question.vue";
 import {createNamespacedHelpers} from "vuex";
 import FrontLayout from "@/views/Front/FrontLayout/FrontLayout.vue";
+import ConfettiGenerator from "confetti-js";
+import ConfettiCanvas from "@/components/ConfettiCanvas/ConfettiCanvas.vue";
 
 const {mapActions, mapGetters} = createNamespacedHelpers("form");
 
 export default {
   name: "form-page",
   components: {
+    ConfettiCanvas,
     FrontLayout,
     Question,
   },
@@ -30,6 +33,7 @@ export default {
               this.form.id
           );
           this.submission = request.submission;
+          this.$refs.confetti.render();
         } catch (e) {
           console.log(e);
         }
@@ -52,6 +56,7 @@ export default {
 
 <template>
   <FrontLayout name="form-page">
+    <ConfettiCanvas ref="confetti"/>
       <form action="" class="questions-form" @submit.prevent="handleSubmit">
         <ul class="questions-list">
           <Question

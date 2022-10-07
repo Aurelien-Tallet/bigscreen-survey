@@ -49,6 +49,9 @@
 
   //main
   &__main {
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -58,6 +61,7 @@
   //footer
   &__footer {
     background-color: #141416;
+    color: white;
     @media (max-width: 767px){
       .container{
         .Footer_socials__2zt5G{

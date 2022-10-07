@@ -42,25 +42,32 @@ export default {
 </script>
 
 <template>
-  <FrontLayout>
-    <form @submit.prevent="login">
-      <div class="content">
-        <div class="input-wrapper">
-          <label>Courriel</label>
-          <input :class="{isError}" v-model="email" type="text" name="email">
+  <FrontLayout :show-footer="false" :show-nav="false">
+    <div class="form-login-container">
+      <form @submit.prevent="login" class="form-login">
+        <a href="/" class="brandlogo">
+          <img src="@/assets/images/bigscreen.svg" alt="logo de BigScreen"/>
+        </a>
+        <div class="content">
+          <div class="input-wrapper">
+            <label>Adresse e-mail</label>
+            <input :class="{isError}" v-model="email" type="text" name="email">
+          </div>
+          <div class="input-wrapper">
+            <label>Mot de passe</label>
+            <input :class="{isError}" v-model="password" type="password" name="password">
+          </div>
         </div>
-        <div class="input-wrapper">
-          <label>Mot de passe</label>
-          <input :class="{isError}" v-model="password" type="password" name="password">
-        </div>
-      </div>
-      <div v-if="isError" class="form-message">Courriel ou mot de passe incorrect</div>
+        <div v-if="isError" class="form-message">Courriel ou mot de passe incorrect</div>
 
-      <button class="cta" type="submit">SE CONNECTER</button>
-    </form>
+        <button class="cta" type="submit">SE CONNECTER</button>
+      </form>
+      <a class="back-to-site" href="/">Retour au site</a>
+    </div>
   </FrontLayout>
 </template>
 
 <style lang="scss" scoped>
 @import "../../../assets/global";
+@import "Login";
 </style>
