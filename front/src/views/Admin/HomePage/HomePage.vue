@@ -88,18 +88,50 @@ export default {
 </script>
 
 <template>
-  <div class="">Home</div>
-  <button @click="logout" class="cta">Se déconnecter</button> <br />
-  <a href="/administration/form/">Forms</a> <br />
-  <a href="/administration/submissions/">Soumissions</a>
-
-  <div v-if="isAllChartsLoaded" class="chart-wrapper">
-    <Radar :data="groupQuestionsForRadar" />
-    <div class="chart" v-for="chart in allPieCharts" :key="chart.id">
-      <p>{{ chart.data.name }}</p>
-      <p>{{ chart.data.body }}</p>
-      <Pie :data="chart.data" />
-    </div>
+  <div class="container">
+    <header class="side-menu">
+      <nav>
+        <router-link to="/administration/" class="logo">
+          <img src="@/assets/images/bigscreen.svg" alt="logo de BigScreen" />
+        </router-link>
+        <ul>
+          <li>
+            <router-link to="/administration/">Accueil</router-link>
+          </li>
+          <li>
+            <router-link to="/administration/form">Questionnaire</router-link>
+          </li>
+          <li>
+            <router-link to="/administration/submissions"
+              >Soumissions</router-link
+            >
+          </li>
+        </ul>
+        <button @click="logout" class="cta logout">Se déconnecter</button>
+      </nav>
+    </header>
+    <main class="main">
+      <div v-if="isAllChartsLoaded" class="chart-wrapper">
+        <div class="quality-header">
+          <h2>Qualité de l'expérience</h2>
+          <p>
+            Les résultats ci-dessous sont basés sur les réponses des
+            utilisateurs à la question « Comment évaluez-vous votre expérience ?
+            »
+          </p>
+          <Radar :data="groupQuestionsForRadar" />
+        </div>
+        <div class="pie-chart-wrapper">
+          <div class="pie-chart" v-for="chart in allPieCharts" :key="chart.id">
+            <div class="pie-chart-header">
+              <p>{{ chart.data.name }}</p>
+              <p>{{ chart.data.body }}</p>
+            </div>
+            <Pie :data="chart.data" />
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 

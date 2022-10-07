@@ -7,7 +7,6 @@ export default {
   }),
   async created() {
     this.form = await this.$FormDataService.getSubmission(1);
-    console.log(this.form);
     this.submissions = this.form;
   },
 };
