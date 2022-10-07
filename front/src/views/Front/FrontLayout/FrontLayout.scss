@@ -17,6 +17,16 @@
       align-items: center;
 
       .nav-link {
+        &:not(:last-child){
+          margin-right: 15px;
+        }
+        &.logo{
+          img{
+            width: auto;
+            height: 20px;
+            filter: brightness(0);
+          }
+        }
         a {
           text-decoration: none;
           color: black;
@@ -46,11 +56,13 @@
 
   //footer
   &__footer {
-    color: white;
-    position: relative;
-    width: 100%;
-    height: $footerHeight;
     background-color: #141416;
-    padding: 30px 50px;
+    @media (max-width: 767px){
+      .container{
+        .Footer_socials__2zt5G{
+          margin-bottom: 40px;
+        }
+      }
+    }
   }
 }
