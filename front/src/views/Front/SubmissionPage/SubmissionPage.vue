@@ -36,7 +36,7 @@ export default {
 
 <template>
   <FrontLayout name="submission-page">
-    <h1 class="page-title">Hey 👋! Heureux de te revoir, voici tes réponses</h1>
+    <h1 class="page-title">Hey 👋 Heureux de te revoir, voici tes réponses : </h1>
     <div class="questions-form">
       <ul class="questions-list">
         <Response

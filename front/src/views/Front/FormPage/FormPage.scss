@@ -2,10 +2,14 @@
   padding: 0 30px;
 
   .form-message {
+    color: black;
     text-align: center;
     font-size: 16px;
     font-style: italic;
     line-height: 20px;
+    a{
+      color: $purple;
+    }
   }
 }
 .questions-form {
