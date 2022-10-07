@@ -59,5 +59,5 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import "../../../assets/global.scss";
+@import "../../../assets/global";
 </style>
