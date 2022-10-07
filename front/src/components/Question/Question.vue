@@ -1,7 +1,7 @@
 <script>
-import {createNamespacedHelpers} from "vuex";
+import { createNamespacedHelpers } from "vuex";
 
-const {mapActions, mapGetters} = createNamespacedHelpers("form");
+const { mapActions, mapGetters } = createNamespacedHelpers("form");
 export default {
   name: "single-question",
   props: {
@@ -17,14 +17,14 @@ export default {
   data() {
     return {
       response: "",
-      id: ""
+      id: "",
     };
   },
 
   methods: {
     ...mapActions(["setQuestionComponent", "setQuestionResponse"]),
     updateQuestion() {
-      const {id, type} = this.data;
+      const { id, type } = this.data;
       this.setQuestionResponse({
         id,
         type,
@@ -89,36 +89,41 @@ export default {
           break;
         case "rating":
           isValid =
-              typeof this.response === "number" &&
-              this.response >= 0 &&
-              this.response <= 5;
+            typeof this.response === "number" &&
+            this.response >= 0 &&
+            this.response <= 5;
           break;
       }
       isValid
-          ? this.setQuestionComponent({id: this.data.id, valid: true})
-          : this.setQuestionComponent({id: this.data.id, valid: false});
+        ? this.setQuestionComponent({ id: this.data.id, valid: true })
+        : this.setQuestionComponent({ id: this.data.id, valid: false });
       return isValid;
     },
   },
 
-  async created() {
-  },
+  async created() {},
 };
 </script>
 
 <template>
-  <li class="single-question" :id="'q-'+questionIndex" :class="{ hidden, active }" :style="{ zIndex }">
+  <li
+    class="single-question"
+    :id="'q-' + questionIndex"
+    :class="{ hidden, active }"
+    :style="{ zIndex }"
+  >
     <div class="single-question__content">
       <h3 class="title">{{ this.data.name }}</h3>
-      <p class="body">{{ this.data.body }}</p>
+      <label for="question-input" class="body">{{ this.data.body }}</label>
 
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
         <input
-            v-model="response"
-            :maxlength="255"
-            @input="updateQuestion"
-            :disabled="isSubmitted"
-            :tabindex="!active ? '-1' : ''"
+          v-model="response"
+          :maxlength="255"
+          @input="updateQuestion"
+          :disabled="isSubmitted"
+          :tabindex="!active ? '-1' : ''"
+          id="question-input"
         />
         <p class="char-left">
           {{ charsLeft }} caractère{{ charsLeft > 1 ? "s" : "" }} restant{{
@@ -128,24 +133,29 @@ export default {
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'rating'">
         <input
-            type="number"
-            v-model.number="response"
-            max="5"
-            min="0"
-            @input="updateQuestion"
-            :disabled="isSubmitted"
-            :tabindex="!active ? '-1' : ''"
+          type="number"
+          v-model.number="response"
+          max="5"
+          min="0"
+          @input="updateQuestion"
+          :disabled="isSubmitted"
+          :tabindex="!active ? '-1' : ''"
+          id="question-input"
         />
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'choice'">
-        <select v-model="response" @change="updateQuestion"
-                :disabled="isSubmitted"
-                :tabindex="!active ? '-1' : ''">
+        <select
+          v-model="response"
+          @change="updateQuestion"
+          :disabled="isSubmitted"
+          :tabindex="!active ? '-1' : ''"
+          id="question-input"
+        >
           <option disabled value="">Veuillez choisir une réponse</option>
           <option
-              v-for="(choice, i) in this.data.choices"
-              :key="i"
-              :value="choice.response"
+            v-for="(choice, i) in this.data.choices"
+            :key="i"
+            :value="choice.response"
           >
             {{ choice.response }}
           </option>
@@ -157,19 +167,19 @@ export default {
 
       <div class="single-question__actions">
         <button
-            class="cta action-cta"
-            @click.prevent="this.prevQuestion()"
-            v-if="this.questionIndex > 0"
-            :tabindex="!active ? '-1' : ''"
+          class="cta action-cta"
+          @click.prevent="this.prevQuestion()"
+          v-if="this.questionIndex > 0"
+          :tabindex="!active ? '-1' : ''"
         >
           Précedent
         </button>
         <button
-            class="cta action-cta"
-            @click.prevent="this.nextQuestion()"
-            v-if="this.questionIndex < this.questionsLength - 1"
-            :disabled="!this.isValid"
-            :tabindex="!active ? '-1' : ''"
+          class="cta action-cta"
+          @click.prevent="this.nextQuestion()"
+          v-if="this.questionIndex < this.questionsLength - 1"
+          :disabled="!this.isValid"
+          :tabindex="!active ? '-1' : ''"
         >
           Suivant
         </button>
