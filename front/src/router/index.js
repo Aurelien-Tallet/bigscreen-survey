@@ -46,7 +46,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const currentUser = store.state.user.token;
-  console.log(currentUser);
   if (to.meta.requiresAuth && !currentUser) {
     next({ name: "Login" });
   } else if (to.path === "/login" && currentUser) {
