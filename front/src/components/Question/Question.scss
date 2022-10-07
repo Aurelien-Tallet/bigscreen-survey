@@ -12,6 +12,14 @@
   height: 275px;
   max-height: 275px;
   color: white;
+
+  //MEDIA
+  @media (max-width: 767px){
+    border-radius: 0;
+    padding: 30px 15px;
+    height: 285px;
+    max-height: 285px;
+  }
   &.response{
     transition: none;
   }
@@ -72,6 +80,16 @@
     justify-content: space-between;
     height: 50px;
 
+    @media (max-width: 767px){
+      height: auto;
+      right: 15px;
+      left: 15px;
+      bottom: 15px;
+      flex-direction: column;
+      .message{
+        margin-bottom: 15px;
+      }
+    }
     .message {
       opacity: .8;
       font-size: 12px;
@@ -86,6 +104,14 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+
+
+    @media (max-width: 767px){
+      position: initial;
+      right: initial;
+      top: initial;
+      transform: initial;
+    }
 
     .action-cta {
       &:not(:last-child) {
