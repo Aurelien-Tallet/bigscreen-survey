@@ -1,9 +1,11 @@
 <script>
 import Response from "@/components/Response/Response.vue";
+import FrontLayout from "@/views/Front/FrontLayout/FrontLayout.vue";
 
 export default {
   name: "form-page",
   components: {
+    FrontLayout,
     Response,
   },
   data() {
@@ -33,20 +35,23 @@ export default {
 </script>
 
 <template>
-  <div class="questions-form">
-    <ul class="questions-list">
-      <Response
-        v-for="(question, i) in responses"
-        :key="i"
-        :data="question"
-        :questionIndex="i"
-        :activeQuestion="activeQuestion"
-        :questionsLength="responses.length"
-        @incrementIndex="activeQuestion++"
-        @decrementIndex="activeQuestion--"
-      />
-    </ul>
-  </div>
+  <FrontLayout name="submission-page">
+    <h1 class="page-title">Hey 👋! Heureux de te revoir, voici tes réponses</h1>
+    <div class="questions-form">
+      <ul class="questions-list">
+        <Response
+            v-for="(question, i) in responses"
+            :key="i"
+            :data="question"
+            :questionIndex="i"
+            :activeQuestion="activeQuestion"
+            :questionsLength="responses.length"
+            @incrementIndex="activeQuestion++"
+            @decrementIndex="activeQuestion--"
+        />
+      </ul>
+    </div>
+  </FrontLayout>
 </template>
 
 <style lang="scss" scoped>
