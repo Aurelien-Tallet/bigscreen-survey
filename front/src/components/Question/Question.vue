@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       response: "",
+      id: "",
     };
   },
 
@@ -32,11 +33,15 @@ export default {
     },
     nextQuestion: function () {
       if (this.activeQuestion < this.questionsLength - 1 && this.active) {
+        let id = `#q-${this.questionIndex + 1}`;
+        document.querySelector(`${id} input, ${id} select`).focus();
         this.$emit("incrementIndex");
       }
     },
     prevQuestion: function () {
       if (this.activeQuestion > 0 && this.active) {
+        // let id = `#q-${this.questionIndex - 1}`;
+        // document.querySelector(`${id} input, ${id} select`).focus();
         this.$emit("decrementIndex");
       }
     },
@@ -101,17 +106,24 @@ export default {
 </script>
 
 <template>
-  <li class="single-question" :class="{ hidden, active }" :style="{ zIndex }">
+  <li
+    class="single-question"
+    :id="'q-' + questionIndex"
+    :class="{ hidden, active }"
+    :style="{ zIndex }"
+  >
     <div class="single-question__content">
       <h3 class="title">{{ this.data.name }}</h3>
-      <p class="body">{{ this.data.body }}</p>
+      <label for="question-input" class="body">{{ this.data.body }}</label>
 
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
         <input
-            v-model="response"
-            :maxlength="255"
-            @input="updateQuestion"
-            :disabled="isSubmitted"
+          v-model="response"
+          :maxlength="255"
+          @input="updateQuestion"
+          :disabled="isSubmitted"
+          :tabindex="!active ? '-1' : ''"
+          id="question-input"
         />
         <p class="char-left">
           {{ charsLeft }} caractère{{ charsLeft > 1 ? "s" : "" }} restant{{
@@ -127,11 +139,18 @@ export default {
           min="0"
           @input="updateQuestion"
           :disabled="isSubmitted"
+          :tabindex="!active ? '-1' : ''"
+          id="question-input"
         />
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'choice'">
-        <select v-model="response" @change="updateQuestion"
-        :disabled="isSubmitted">
+        <select
+          v-model="response"
+          @change="updateQuestion"
+          :disabled="isSubmitted"
+          :tabindex="!active ? '-1' : ''"
+          id="question-input"
+        >
           <option disabled value="">Veuillez choisir une réponse</option>
           <option
             v-for="(choice, i) in this.data.choices"
@@ -151,6 +170,7 @@ export default {
           class="cta action-cta"
           @click.prevent="this.prevQuestion()"
           v-if="this.questionIndex > 0"
+          :tabindex="!active ? '-1' : ''"
         >
           Précedent
         </button>
@@ -159,6 +179,7 @@ export default {
           @click.prevent="this.nextQuestion()"
           v-if="this.questionIndex < this.questionsLength - 1"
           :disabled="!this.isValid"
+          :tabindex="!active ? '-1' : ''"
         >
           Suivant
         </button>
