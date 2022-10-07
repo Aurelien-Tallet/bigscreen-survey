@@ -1,0 +1,56 @@
+.AppLayout {
+  background-color: #EDEDED;
+  $navHeight: 60px;
+  $footerHeight: 200px;
+
+  //navigation
+  &__nav {
+    position: relative;
+    min-height: $navHeight;
+    width: 100%;
+    color: black;
+    padding: 0 50px;
+
+    .nav-links {
+      height: $navHeight;
+      display: flex;
+      align-items: center;
+
+      .nav-link {
+        a {
+          text-decoration: none;
+          color: black;
+        }
+
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      width: calc(100% - 100px);
+      background-color: $grey;
+    }
+  }
+
+  //main
+  &__main {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - $navHeight - $footerHeight);
+  }
+
+  //footer
+  &__footer {
+    color: white;
+    position: relative;
+    width: 100%;
+    height: $footerHeight;
+    background-color: #141416;
+    padding: 30px 50px;
+  }
+}
