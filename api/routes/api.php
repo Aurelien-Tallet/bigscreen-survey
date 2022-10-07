@@ -35,6 +35,6 @@ Route::prefix('auth')->group(function () {
     Route::post('logout', [AuthController::class, "logout"])->middleware('auth:sanctum')->name('auth.logout');
     Route::get('user', [AuthController::class, "getAuthenticatedUser"])->middleware('auth:sanctum')->name('auth.user');
 
-    Route::post('/password/email', 'App\Http\Controllers\Api\Auth\AuthController@sendPasswordResetLinkEmail')->middleware('throttle:5,1')->name('password.email');
-    Route::post('/password/reset', 'App\Http\Controllers\Api\Auth\AuthController@resetPassword')->name('password.reset');
+    Route::post('/password/email', 'App\Http\Controllers\Auth\AuthController@sendPasswordResetLinkEmail')->middleware('throttle:5,1')->name('password.email');
+    Route::post('/password/reset', 'App\Http\Controllers\Auth\AuthController@resetPassword')->name('password.reset');
 });
