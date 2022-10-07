@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
-import FormPage from "@/views/FormPage/FormPage.vue";
-import SubmissionPage from "@/views/SubmissionPage/SubmissionPage.vue";
-import Login from "@/views/Admin/Login/Login.vue";
+import FormPage from "@/views/Front/FormPage/FormPage.vue";
+import SubmissionPage from "@/views/Front/SubmissionPage/SubmissionPage.vue";
+import Login from "@/views/Front/Login/Login.vue";
 import store from "@/store";
 
 const router = createRouter({

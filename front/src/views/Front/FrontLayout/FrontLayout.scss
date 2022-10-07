@@ -1,0 +1,87 @@
+.AppLayout {
+  background-color: #EDEDED;
+  $navHeight: 60px;
+  $footerHeight: 200px;
+
+  //navigation
+  &__nav {
+    position: relative;
+    min-height: $navHeight;
+    width: 100%;
+    color: black;
+    padding: 0 50px;
+
+    @media (max-width: 767px){
+      padding: 0 15px;
+    }
+
+    .nav-links {
+      height: $navHeight;
+      display: flex;
+      align-items: center;
+
+      .nav-link {
+        &:not(:last-child){
+          margin-right: 15px;
+        }
+        &.logo{
+          img{
+            width: auto;
+            height: 20px;
+            filter: brightness(0);
+          }
+        }
+        a {
+          text-decoration: none;
+          color: black;
+        }
+
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 1px;
+      width: calc(100% - 100px);
+      background-color: $grey;
+
+      @media (max-width: 767px){
+        width: 100%;
+      }
+    }
+  }
+
+  //main
+  &__main {
+    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - $navHeight - $footerHeight);
+
+    @media (max-width: 767px){
+      padding: 0;
+      justify-content: initial;
+      min-height: initial;
+    }
+  }
+
+  //footer
+  &__footer {
+    background-color: #141416;
+    color: white;
+    @media (max-width: 767px){
+      .container{
+        .Footer_socials__2zt5G{
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+}

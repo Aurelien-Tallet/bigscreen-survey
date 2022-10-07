@@ -8,12 +8,19 @@ $purple: #5400ff;
 $light-blue : #00e4ff;
 $light-purple: #8000ff;
 $dark-purple:#4100d0;
+$eerie-black: #141416;
 
 //PLACEHOLDERS
 %pills{
   border-radius: 9999999999px;
 }
 
-
+//TITLES & TEXTS
+.page-title{
+  font-size: 30px;
+  color: black;
+  margin-bottom: 60px;
+  text-align: center;
+}
 //IMPORTS
 @import "components/inputs.scss";
