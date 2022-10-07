@@ -1,5 +1,4 @@
 <script>
-import FormDataService from "@/services/FormDataService";
 
 export default {
   name: "FormPage",
@@ -7,13 +6,9 @@ export default {
     questions: [],
   }),
   async created() {
-    this.form = await FormDataService.get(1);
+    this.form = await this.$FormDataService.get(1);
     this.questions = this.form.questions;
   },
-  //   async created() {
-  //     this.data = await FormDataService.get(1).questions;
-  //     console.log(await FormDataService.get(1));
-  //   },
 };
 </script>
 

@@ -1,5 +1,4 @@
 <script>
-import AuthDataService from "@/services/AuthDataService";
 import {createNamespacedHelpers} from "vuex";
 import {setCookie} from "@/utils/cookiesHelper";
 import router from "@/router";
@@ -20,7 +19,7 @@ export default {
     async login() {
       const { email, password } = this;
       try {
-        const res = await AuthDataService.login({ email, password });
+        const res = await this.$AuthDataService.login({ email, password });
         const { access_token } = res.data;
         this.setToken(access_token);
         setCookie("access_token", access_token, 1)

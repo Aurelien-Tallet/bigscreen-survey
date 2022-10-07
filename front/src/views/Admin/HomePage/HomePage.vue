@@ -1,12 +1,11 @@
 <script>
 import Pie from "@/components/Pie/Pie.vue";
 import Radar from "@/components/Radar/Radar.vue";
-import FormDataService from "@/services/FormDataService";
 
-import {createNamespacedHelpers} from "vuex";
-import {deleteCookie, setCookie} from "@/utils/cookiesHelper";
+import { createNamespacedHelpers } from "vuex";
+import { deleteCookie } from "@/utils/cookiesHelper";
 import router from "@/router";
-const {mapActions, mapGetters} = createNamespacedHelpers("user");
+const { mapActions } = createNamespacedHelpers("user");
 
 export default {
   name: "home-page",
@@ -61,11 +60,11 @@ export default {
   }),
   methods: {
     ...mapActions(["setToken"]),
-    logout(){
+    logout() {
       this.setToken(null);
       deleteCookie("access_token");
-      router.go("/login")
-    }
+      router.go("/login");
+    },
   },
   computed: {
     isAllChartsLoaded() {
@@ -81,7 +80,7 @@ export default {
   },
   async created() {
     for (const chart of this.charts) {
-      const data = await FormDataService.getResponses(chart.id);
+      const data = await this.$FormDataService.getResponses(chart.id);
       chart.data = data;
     }
   },
@@ -90,7 +89,9 @@ export default {
 
 <template>
   <div class="">Home</div>
-  <button @click="logout" class="cta">Se déconnecter</button>
+  <button @click="logout" class="cta">Se déconnecter</button> <br />
+  <a href="/administration/form/">Forms</a> <br />
+  <a href="/administration/submissions/">Soumissions</a>
 
   <div v-if="isAllChartsLoaded" class="chart-wrapper">
     <Radar :data="groupQuestionsForRadar" />

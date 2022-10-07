@@ -1,5 +1,4 @@
 <script>
-import FormDataService from "@/services/FormDataService";
 import Question from "@/components/Question/Question.vue";
 import { createNamespacedHelpers } from "vuex";
 
@@ -24,7 +23,7 @@ export default {
       this.setSubmitted(true);
       if (this.$store.getters["form/isAllQuestionsValid"]) {
         try {
-          const request = await FormDataService.submit(
+          const request = await this.$FormDataService.submit(
             { questions: this.$store.getters["form/questionsResponses"] },
             this.form.id
           );
@@ -40,7 +39,7 @@ export default {
   },
 
   async created() {
-    this.form = await FormDataService.get(1);
+    this.form = await this.$FormDataService.get(1);
     this.questions = this.form.questions;
     this.questions.forEach((el) => {
       this.setQuestionComponent({ id: el.id, valid: false });

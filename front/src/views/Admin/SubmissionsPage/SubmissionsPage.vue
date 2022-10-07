@@ -1,5 +1,4 @@
 <script>
-import FormDataService from "@/services/FormDataService";
 
 export default {
   name: "SubmissionsPage",
@@ -7,7 +6,7 @@ export default {
     submissions: [],
   }),
   async created() {
-    this.form = await FormDataService.getSubmission(1);
+    this.form = await this.$FormDataService.getSubmission(1);
     console.log(this.form);
     this.submissions = this.form;
   },
@@ -37,12 +36,15 @@ export default {
 <style lang="scss" scoped>
 ul {
   list-style-type: none;
-  max-width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   div {
-    border: 1px solid black;
+    border: 1px solid $purple;
+    border-radius: 30px;
+    padding: 1rem;
   }
 }
 li {
@@ -51,6 +53,7 @@ li {
   align-items: flex-end;
   justify-content: space-between;
   gap: 1rem;
-  border-radius: 5px;
+  border-bottom: 1px solid $purple;
+  border-top: 1px solid $purple;
 }
 </style>

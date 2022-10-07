@@ -32,12 +32,14 @@ const router = createRouter({
       path: "/administration/form",
       name: "admin-form",
       component: () => import("@/views/Admin/FormPage/FormPage.vue"),
+      meta: { requiresAuth: true },
     },
     {
       path: "/administration/submissions",
       name: "admin-submissions",
       component: () =>
         import("@/views/Admin/SubmissionsPage/SubmissionsPage.vue"),
+      meta: { requiresAuth: true },
     },
   ],
 });
