@@ -50,5 +50,5 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-@import "../FormPage/FormPage.scss";
+@import "../FormPage/FormPage";
 </style>
