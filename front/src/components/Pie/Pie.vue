@@ -107,6 +107,9 @@ export default {
   &-canvas {
     max-width: 250px;
     margin: 0 auto;
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
   }
   .legends {
     display: grid;

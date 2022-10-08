@@ -97,6 +97,9 @@ export default {
   max-width: 500px;
   height: auto;
   margin: 0 auto;
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 }
 canvas {
   width: 100%;

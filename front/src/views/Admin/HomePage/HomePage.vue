@@ -2,7 +2,6 @@
 import Pie from "@/components/Pie/Pie.vue";
 import Radar from "@/components/Radar/Radar.vue";
 
-
 import BackLayout from "../BackLayout/BackLayout.vue";
 
 export default {
@@ -79,7 +78,7 @@ export default {
 </script>
 
 <template>
-  <BackLayout>
+  <BackLayout title="Statistiques des réponses au sondage">
     <div v-if="isAllChartsLoaded" class="chart-wrapper">
       <div class="section-header">
         <h2>Qualitée</h2>

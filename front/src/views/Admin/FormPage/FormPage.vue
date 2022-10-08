@@ -1,4 +1,5 @@
 <script>
+import BackLayout from "../BackLayout/BackLayout.vue";
 export default {
   name: "FormPage",
   data: () => ({
@@ -12,46 +13,50 @@ export default {
   async created() {
     this.form = await this.$FormDataService.get(1);
   },
+  components: { BackLayout },
 };
 </script>
 
 <template>
-  <h1>Questionnaire</h1>
-  <div class="form-wrapper">
-    <div class="form-wrapper-header">
-      <h2>{{ form.entitled }}</h2>
-      <p>{{ form.description }}</p>
+  <BackLayout :title="form.entitled">
+    <div class="form-wrapper">
+      <ul>
+        <li class="form-wrapper-hero">
+          <span>Numero </span>
+          <span>Question </span>
+          <span>Type </span>
+        </li>
+        <li
+          v-for="(question, index) in questions"
+          :key="question.id"
+          :class="question.type.name"
+        >
+          <span>
+            {{ index + 1 }}
+          </span>
+          <span>
+            {{ question.body }}
+          </span>
+          <span>
+            {{ question.type.name }}
+          </span>
+        </li>
+      </ul>
     </div>
-    <ul>
-      <li class="form-wrapper-hero">
-        <span>Numero </span>
-        <span>Question </span>
-        <span>Type </span>
-      </li>
-      <li
-        v-for="question in questions"
-        :key="question.id"
-        :class="question.type.name"
-      >
-        <span>
-          {{ question.name }}
-        </span>
-        <span>
-          {{ question.body }}
-        </span>
-        <span>
-          {{ question.type.name }}
-        </span>
-      </li>
-    </ul>
-  </div>
+  </BackLayout>
 </template>
 
 <style lang="scss" scoped>
+$box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+  rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
 .form-wrapper {
-  padding: 3rem;
+  //   padding: 2rem 0;
   max-width: 1400px;
   margin: 0 auto;
+  background: white;
+  box-shadow: $box-shadow;
+  border-radius: 7px;
 }
 ul {
   list-style-type: none;
@@ -59,66 +64,77 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
 }
 li {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  color: white;
-//   border: 1px solid $purple;
-  border-radius: 99999px;
-  width: 90%;
+  width: 100%;
   height: 55px;
-  &.textarea {
-    background: rgba(169, 16, 177, 0.602);
+  color: #141414;
+  padding: 0 5px;
+
+  &:not(.form-wrapper-hero) {
+    span {
+      &:nth-child(1),
+      &:nth-child(2) {
+        position: relative;
+        &::before {
+          position: absolute;
+          content: "";
+          height: 30px;
+          background-color: rgb(183, 183, 183);
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1px;
+        }
+      }
+    }
   }
-  &.rating {
-    background: rgba(204, 213, 33, 0.57);
+  &:nth-child(even) {
+    background: $light-grey;
   }
-  &.choice {
-    background: rgba(20, 187, 20, 0.697);
+  &:nth-child(odd) {
+    background: white;
   }
   span {
     display: block;
-    height: 100%;
-    padding: 1em;
+    height: auto;
     line-height: 1.2;
-    // border-left: 1px solid $purple;
-    // border-right: 1px solid $purple;
-    &:first-child {
-      width: 20%;
-      border: none;
-    //   border-right: 1px solid $purple;
-    //   border-radius: 99999px 0 0 99999px;
-    //   background: $purple;
-      color: white;
+    @media (max-width: 1200px) {
+      font-size: 16px;
     }
-    &:last-child {
-      width: 15%;
-      border: none;
-    //   border-left: 1px solid $purple;
-      border-radius: 0 99999px 99999px 0;
-    //   background: $purple;
-    //   text-transform: capitalize;
-      color: white;
+    &:nth-child(1) {
+      width: 10%;
+      font-size: 23px;
+      font-weight: bold;
+      text-align: center;
+      @media (max-width: 1200px) {
+        font-size: 20px;
+      }
     }
     &:nth-child(2) {
-      width: 100%;
-      border: none;
+      width: 70%;
+    }
+    &:nth-child(3) {
+      width: 10%;
     }
   }
   &.form-wrapper-hero {
-    background: linear-gradient($dark-purple, $purple);
-    color: white;
     font-weight: bold;
-    border-radius: 0;
     width: 100%;
-    padding: 1em 5em;
+    height: 70px;
+    box-shadow: 0px 1px 0px 0px rgba(142, 77, 77, 0.1);
+    align-items: center;
     span {
       border: none;
       background: none;
       text-transform: uppercase;
+      font-size: 22px;
+      @media (max-width: 1200px) {
+        font-size: 18px;
+      }
     }
   }
 }
