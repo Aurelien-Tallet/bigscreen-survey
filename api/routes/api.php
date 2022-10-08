@@ -26,8 +26,8 @@ Route::post('/forms/{id}', [FormController::class, 'submit']);
 
 //PRIVATE API ROUTES
 Route::prefix('data')->group(function () {
-    Route::get('question/{id}', [QuestionController::class, 'getResponses']);
-    Route::get('submissions/{formId}', [FormController::class, 'getAllSubmissions']);
+    Route::get('question/{id}', [QuestionController::class, 'getResponses'])->middleware('auth:sanctum');
+    Route::get('submissions/{formId}', [FormController::class, 'getAllSubmissions'])->middleware('auth:sanctum');
 });
 
 //AUTH API ROUTES
