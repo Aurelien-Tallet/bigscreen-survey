@@ -2,16 +2,15 @@
 import Pie from "@/components/Pie/Pie.vue";
 import Radar from "@/components/Radar/Radar.vue";
 
-import { createNamespacedHelpers } from "vuex";
-import { deleteCookie } from "@/utils/cookiesHelper";
-import router from "@/router";
-const { mapActions } = createNamespacedHelpers("user");
+
+import BackLayout from "../BackLayout/BackLayout.vue";
 
 export default {
   name: "home-page",
   components: {
     Pie,
     Radar,
+    BackLayout,
   },
   data: () => ({
     data: [],
@@ -58,14 +57,6 @@ export default {
       },
     ],
   }),
-  methods: {
-    ...mapActions(["setToken"]),
-    logout() {
-      this.setToken(null);
-      deleteCookie("access_token");
-      router.go("/login");
-    },
-  },
   computed: {
     isAllChartsLoaded() {
       return this.charts.every(({ data }) => data !== null);
@@ -88,52 +79,28 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <header class="side-menu">
-      <nav>
-        <router-link to="/administration/" class="logo">
-          <img src="@/assets/images/bigscreen.svg" alt="logo de BigScreen" />
-        </router-link>
-        <ul>
-          <li>
-            <router-link to="/administration/">Accueil</router-link>
-          </li>
-          <li>
-            <router-link to="/administration/form">Questionnaire</router-link>
-          </li>
-          <li>
-            <router-link to="/administration/submissions"
-              >Soumissions</router-link
-            >
-          </li>
-        </ul>
-        <button @click="logout" class="cta logout">Se déconnecter</button>
-      </nav>
-    </header>
-    <main class="main">
-      <h1>Statistiques des réponses au sondage</h1>
-      <div v-if="isAllChartsLoaded" class="chart-wrapper">
-        <div class="section-header">
-          <h2>Qualitée</h2>
-        </div>
-        <div class="radar-chart">
-          <Radar :data="groupQuestionsForRadar" />
-        </div>
-        <div class="section-header">
-          <h2>Équipements</h2>
-        </div>
-        <div class="pie-chart-wrapper">
-          <div class="pie-chart" v-for="chart in allPieCharts" :key="chart.id">
-            <div class="pie-chart-header">
-              <h2>{{ chart.data.name }}</h2>
-              <p>{{ chart.data.body }}</p>
-            </div>
-            <Pie :data="chart.data" />
+  <BackLayout>
+    <div v-if="isAllChartsLoaded" class="chart-wrapper">
+      <div class="section-header">
+        <h2>Qualitée</h2>
+      </div>
+      <div class="radar-chart">
+        <Radar :data="groupQuestionsForRadar" />
+      </div>
+      <div class="section-header">
+        <h2>Équipements</h2>
+      </div>
+      <div class="pie-chart-wrapper">
+        <div class="pie-chart" v-for="chart in allPieCharts" :key="chart.id">
+          <div class="pie-chart-header">
+            <h2>{{ chart.data.name }}</h2>
+            <p>{{ chart.data.body }}</p>
           </div>
+          <Pie :data="chart.data" />
         </div>
       </div>
-    </main>
-  </div>
+    </div>
+  </BackLayout>
 </template>
 
 <style lang="scss" scoped>
