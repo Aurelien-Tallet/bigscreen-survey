@@ -53,7 +53,7 @@ trait GlobalTrait
     /*
      * Get list of existing form's questions with according Type name
      */
-    public static function getDefaultFormQuestionsOld()
+    public static function getDefaultFormQuestions()
     {
         $types = self::getTypes();
         return [
@@ -161,27 +161,6 @@ trait GlobalTrait
             [
                 "type" => $types[0],
                 "body" => "Quelle nouvelle fonctionnalité devrait exister sur Bigscreen ?",
-            ],
-        ];
-    }
-    public static function getDefaultFormQuestions()
-    {
-        $types = self::getTypes();
-        return [
-            [
-                "type" => $types[0],
-                "body" => "Votre adresse mail",
-            ],
-
-            [
-                "type" => $types[0],
-                "body" => "Votre âge",
-            ],
-
-            [
-                "type" => $types[2],
-                "body" => "Votre sexe",
-                "choices" => [2, 3, 4],
             ],
         ];
     }
