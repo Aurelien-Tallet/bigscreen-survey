@@ -83,14 +83,14 @@ export default {
       <div class="section-header">
         <h2>Qualitée</h2>
       </div>
-      <div class="radar-chart">
+      <div class="radar-chart home-chart">
         <Radar :data="groupQuestionsForRadar" />
       </div>
       <div class="section-header">
         <h2>Équipements</h2>
       </div>
       <div class="pie-chart-wrapper">
-        <div class="pie-chart" v-for="chart in allPieCharts" :key="chart.id">
+        <div class="pie-chart home-chart" v-for="chart in allPieCharts" :key="chart.id">
           <div class="pie-chart-header">
             <h2>{{ chart.data.name }}</h2>
             <p>{{ chart.data.body }}</p>
