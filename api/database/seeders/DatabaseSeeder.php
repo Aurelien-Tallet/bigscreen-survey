@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             TypesSeeder::class,
             ChoicesSeeder::class,
             FormSeeder::class,
+            SubmissionSeeder::class,
         ]);
     }
 }

@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import FormPage from "@/views/Front/FormPage/FormPage.vue";
-import SubmissionPage from "@/views/Front/SubmissionPage/SubmissionPage.vue";
-import Login from "@/views/Front/Login/Login.vue";
 import store from "@/store";
 
 const router = createRouter({
@@ -15,12 +13,12 @@ const router = createRouter({
     {
       name: "Login",
       path: "/login",
-      component: Login,
+      component: () => import("@/views/Front/Login/Login.vue"),
     },
     {
       path: "/my-submission/:uuid",
       name: "submissionpage",
-      component: SubmissionPage,
+      component: () => import("@/views/Front/SubmissionPage/SubmissionPage.vue"),
     },
     {
       path: "/administration",
@@ -41,6 +39,12 @@ const router = createRouter({
         import("@/views/Admin/SubmissionsPage/SubmissionsPage.vue"),
       meta: { requiresAuth: true },
     },
+    {
+      path: "/:catchAll(.*)",
+      name: "not-found",
+      component: () => import("@/views/Front/NotFound/NotFound.vue"),
+    },
+
   ],
 });
 
