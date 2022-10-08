@@ -18,23 +18,22 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
+//PUBLIC API ROUTES
 Route::get('/forms', [FormController::class, 'index']);
 Route::get('/submission/{uuid}', [SubmissionController::class, 'show']);
 Route::get('/forms/{id}', [FormController::class, 'show']);
 Route::post('/forms/{id}', [FormController::class, 'submit']);
 
+//PRIVATE API ROUTES
 Route::prefix('data')->group(function () {
     Route::get('question/{id}', [QuestionController::class, 'getResponses']);
     Route::get('submissions/{formId}', [FormController::class, 'getAllSubmissions']);
 });
 
-// Auth
+//AUTH API ROUTES
 Route::prefix('auth')->group(function () {
     Route::post('signup', [AuthController::class, "signup"])->name('auth.signup');
     Route::post('login', [AuthController::class, "login"])->name('auth.login');
     Route::post('logout', [AuthController::class, "logout"])->middleware('auth:sanctum')->name('auth.logout');
     Route::get('user', [AuthController::class, "getAuthenticatedUser"])->middleware('auth:sanctum')->name('auth.user');
-
-    Route::post('/password/email', 'App\Http\Controllers\Auth\AuthController@sendPasswordResetLinkEmail')->middleware('throttle:5,1')->name('password.email');
-    Route::post('/password/reset', 'App\Http\Controllers\Auth\AuthController@resetPassword')->name('password.reset');
 });

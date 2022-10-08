@@ -44,13 +44,19 @@ const router = createRouter({
   ],
 });
 
+
+// Check if each route require authentication or no
 router.beforeEach((to, from, next) => {
   const currentUser = store.state.user.token;
+
   if (to.meta.requiresAuth && !currentUser) {
+    // If authentication is required and user is not authenticate, redirect to Login vue
     next({ name: "Login" });
   } else if (to.path === "/login" && currentUser) {
+    // If authentication is required and user is authenticate, redirect to Admin vue
     next("/administration");
   } else {
+    // If authentication is not required redirect to desired page
     next();
   }
 });

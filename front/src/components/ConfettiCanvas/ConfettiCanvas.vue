@@ -5,9 +5,11 @@ export default {
   props:{
   },
   methods: {
+    //Render the confettis
     render(){
       this.confetti.render();
     },
+    //Clear the confettis
     clear(){
       this.confetti.clear();
     },
@@ -17,6 +19,7 @@ export default {
   },
 
   async mounted() {
+    //Confetti INIT
     const confettiSettings = {target: 'confetti'};
     this.confetti = new ConfettiGenerator(confettiSettings);
   },

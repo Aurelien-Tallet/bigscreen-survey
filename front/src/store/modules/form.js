@@ -1,18 +1,27 @@
 const store = {
   namespaced: true,
+
+  // Form state
   state: {
     questionsComponents: {},
     questionsResponses: [],
     isSubmitted: false,
   },
+
+  // Form mutations
   mutations: {
+    // Set Form status
     setSubmitted(state, value) {
       state.isSubmitted = value;
     },
+
     setQuestionComponent(state, value) {
+      // Set or update form's question status
       state.questionsComponents[value.id] = value.valid;
     },
+
     setQuestionResponse(state, value) {
+      // Set or update form's question input
       let found = false;
       let index = 0;
       state.questionsResponses.forEach((question, i) => {
@@ -28,8 +37,10 @@ const store = {
       }
     },
   },
+
+  // Form actions
   actions: {
-    setSubmitted({commit}, bool) {
+    setSubmitted({ commit }, bool) {
       commit("setSubmitted", bool);
     },
     setQuestionComponent({ commit }, questionComponent) {
@@ -39,11 +50,13 @@ const store = {
       commit("setQuestionResponse", question);
     },
   },
+  // Form getters
   getters: {
     isSubmitted: (state) => state.isSubmitted,
     questionsComponents: (state) => state.questionsComponents,
     questionsResponses: (state) => state.questionsResponses,
     isAllQuestionsValid: (state) => {
+      // Check if all user responses are valid
       const questions = state.questionsComponents;
       let validCount = 0;
       for (let key in questions) questions[key] && validCount++;

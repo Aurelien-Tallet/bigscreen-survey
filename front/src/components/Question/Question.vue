@@ -22,7 +22,10 @@ export default {
   },
 
   methods: {
+    //Get store actions
     ...mapActions(["setQuestionComponent", "setQuestionResponse"]),
+
+    //Update question status
     updateQuestion() {
       const { id, type } = this.data;
       this.setQuestionResponse({
@@ -31,6 +34,8 @@ export default {
         response: this.response,
       });
     },
+
+    //Go to next question
     nextQuestion: function () {
       if (this.activeQuestion < this.questionsLength - 1 && this.active) {
         let id = `#q-${this.questionIndex + 1}`;
@@ -38,13 +43,17 @@ export default {
         this.$emit("incrementIndex");
       }
     },
+
+
+    //Go to previous question
     prevQuestion: function () {
       if (this.activeQuestion > 0 && this.active) {
-        // let id = `#q-${this.questionIndex - 1}`;
-        // document.querySelector(`${id} input, ${id} select`).focus();
         this.$emit("decrementIndex");
       }
     },
+
+
+    //Display error / info message
     displayMessage: function () {
       let msg = "";
 
@@ -65,19 +74,32 @@ export default {
   },
 
   computed: {
+
+    //Get all the getters from the store
     ...mapGetters(["isSubmitted"]),
+
+
+    //Compute characters left
     charsLeft() {
       return 255 - this.response.length;
     },
+
+    //Is question need to be hidden or not
     hidden() {
       return this.questionIndex < this.activeQuestion;
     },
+
+    //Is question active or not
     active() {
       return this.questionIndex === this.activeQuestion;
     },
+
+    //Question z Index based on it's index
     zIndex() {
       return this.questionsLength - this.questionIndex;
     },
+
+    //Is user input valid or not
     isValid() {
       let isValid = false;
       switch (this.data.type.name) {
@@ -100,8 +122,6 @@ export default {
       return isValid;
     },
   },
-
-  async created() {},
 };
 </script>
 
@@ -112,10 +132,14 @@ export default {
     :class="{ hidden, active }"
     :style="{ zIndex }"
   >
+
+    <!--    QUESTION CONTENT-->
     <div class="single-question__content">
       <h3 class="title">{{ this.data.name }}</h3>
       <label for="question-input" class="body">{{ this.data.body }}</label>
 
+
+      <!--    QUESTION INPUT-->
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
         <input
           v-model="response"
@@ -162,6 +186,8 @@ export default {
         </select>
       </div>
     </div>
+
+<!--    QUESTION FOOTER-->
     <div class="single-question__footer">
       <div class="message" v-if="!isValid">{{ displayMessage() }}</div>
 
