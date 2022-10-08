@@ -14,11 +14,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\User::factory()->create([
-             'name' => 'admin',
-             'email' => 'admin@admin.com',
-         ]);
+        // Create admin user
         $this->call([
+            UserSeeder::class,
             TypesSeeder::class,
             ChoicesSeeder::class,
             FormSeeder::class,
