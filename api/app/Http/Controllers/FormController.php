@@ -42,11 +42,11 @@ class FormController extends Controller
 
 
     /*
-     * Form Submission
+     * Form Submission / Validation
      */
     public function submit(Request $request, $id)
     {
-
+        // Verifiy if the number of answers is equal to the number of question
         $formQuestions = $this->show($id);
         if (count($formQuestions->questions) != count($request->questions)) {
             return response()->json([
@@ -55,7 +55,7 @@ class FormController extends Controller
         }
 
         $Responses = [];
-        // Valide each question in the request and create a response for each question
+        // Valid each question in the request and create a response for each question
         foreach ($formQuestions->questions as $key => $question) {
             switch ($question->type->name) {
                 // Validate the question by the type of question
