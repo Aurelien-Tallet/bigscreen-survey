@@ -1,0 +1,22 @@
+.helmet-vr {
+  width: 100px;
+}
+
+h1 {
+  font-size: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+  @media (max-width: $screen-max-sm) {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+}
+
+.not-found-content {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+}
