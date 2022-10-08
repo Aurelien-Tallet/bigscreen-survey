@@ -55,8 +55,10 @@ class FormController extends Controller
         }
 
         $Responses = [];
+        // Valide each question in the request and create a response for each question
         foreach ($formQuestions->questions as $key => $question) {
             switch ($question->type->name) {
+                // Validate the question by the type of question
                 case 'textarea':
                     $validator = Validator::make($request->questions[$key], [
                         'response' => 'required|string|max:255',
@@ -115,12 +117,13 @@ class FormController extends Controller
                     break;
             }
         }
+        // Create a submission with unique id
         $Submission = Submission::create([
             'form_id' => $id,
             'uuid' => Uuid::uuid4()->toString(),
             'created_at' => now()
         ]);
-
+        // Create a response for each question and associate choices if the question is a choice
         foreach ($Responses as $response) {
             $resp = Response::create($response['response']);
             $Submission->responses()->attach($resp->id);
