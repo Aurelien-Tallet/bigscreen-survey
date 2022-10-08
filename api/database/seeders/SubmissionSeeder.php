@@ -5,27 +5,32 @@ namespace Database\Seeders;
 use App\Models\Form;
 use App\Models\Response;
 use App\Models\Submission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 
 class SubmissionSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Create 5 different submissions
      *
      * @return void
      */
     public function run()
     {
+//        Get the form
         $form = Form::all()->first()->with('questions', 'questions.choices', 'questions.type')->get();
+
+//        Get questions
         $questions = $form->pluck('questions')->flatten();
+
+
         for ($i = 1; $i <= 5; $i++) {
             $Responses = [];
             foreach ($questions as $question) {
                 $type = $question['type']['name'];
                 switch ($type) {
+
+                    //        If question is type : textarea, put xxxxxxxxxxx as response
                     case 'textarea':
                         $response =
                             [
@@ -37,6 +42,8 @@ class SubmissionSeeder extends Seeder
                             ];
                         $Responses[] = $response;
                         break;
+
+                    //        If question is type : rating, chose a random int between 0 and 5 as response
                     case 'rating':
                         $response =
                             [
@@ -48,6 +55,8 @@ class SubmissionSeeder extends Seeder
                             ];
                         $Responses[] = $response;
                         break;
+
+                    //        If question is type : rating, chose a random question's choice
                     case 'choice':
                         $choices = $question['choices'];
                         $response = [
@@ -68,11 +77,14 @@ class SubmissionSeeder extends Seeder
                 }
             }
 
+            // Create a submission with unique id
             $Submission = Submission::create([
                 'form_id' => $form->first()->id,
                 'uuid' => Uuid::uuid4()->toString(),
                 'created_at' => now()
             ]);
+
+            // Create a response for each question and associate choices if the question is a choice
             foreach ($Responses as $response) {
                 $resp = Response::create($response['response']);
                 $Submission->responses()->attach($resp->id);
