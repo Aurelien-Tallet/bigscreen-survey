@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Http\Traits\GlobalTrait;
 use App\Models\Choice;
-use App\Models\Type;
 use Illuminate\Database\Seeder;
 
 class ChoicesSeeder extends Seeder
