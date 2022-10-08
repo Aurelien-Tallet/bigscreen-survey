@@ -24,6 +24,13 @@ export default {
         ul.style.maxHeight = ul.scrollHeight + "px";
       }
     },
+    formatDateToFrenchUsing(date) {
+      return new Date(date).toLocaleDateString("fr-FR", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    },
   },
   async created() {
     this.form = await this.$FormDataService.getSubmission(1);
@@ -42,8 +49,8 @@ export default {
         @click.prevent="openAccordion"
       >
         <div class="submission-header">
-          <h2>UUID :{{ submission.uuid }}</h2>
-          <p>{{ submission.created_at }}</p>
+          <h2>UUID : {{ submission.uuid }}</h2>
+          <p>Date : {{ formatDateToFrenchUsing(submission.created_at) }}</p>
           <button class="open-accordion">
             <svg
               viewBox="0 0 467 257"
@@ -100,129 +107,6 @@ export default {
   </BackLayout>
 </template>
 
-<style lang="scss" scoped>
-$box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-  rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-
-.submissions-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 40px;
-}
-.submission {
-  height: 100%;
-  transition: 0.5s ease;
-  box-shadow: $box-shadow;
-  border-radius: 7px;
-  cursor: pointer;
-  &.active {
-    & .submission-header {
-      border-radius: 7px 7px 0 0;
-      .open-accordion {
-        transform-origin: center;
-        transform: translate(0, -50%) rotateX(-180deg);
-      }
-    }
-  }
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    background: linear-gradient(
-      -90deg,
-      rgba(140, 83, 255, 1) 0%,
-      rgba(84, 0, 255, 1) 100%
-    );
-    align-items: center;
-    padding: 30px;
-    border-radius: 7px;
-    color: white;
-    position: relative;
-    padding-right: 100px;
-
-    .open-accordion {
-      position: absolute;
-      right: 30px;
-      top: 50%;
-      transform: translate(0, -50%) rotateX(0);
-      background: none;
-      border: none;
-      color: white;
-      font-size: 40px;
-      cursor: pointer;
-      display: flex;
-      transition: transform 0.3s ease-in-out;
-      svg {
-        width: 30px;
-      }
-    }
-  }
-}
-ul {
-  list-style-type: none;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  border-radius: 7px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-}
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 55px;
-  color: #141414;
-  padding: 5px;
-  &:nth-child(even) {
-    background: $light-grey;
-  }
-  &:nth-child(odd) {
-    background: white;
-  }
-  span {
-    display: block;
-    height: auto;
-    line-height: 1.2;
-    @media (max-width: $screen-max-lg) {
-      font-size: 16px;
-    }
-    &:nth-child(1) {
-      width: 5%;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-      @media (max-width: $screen-max-lg) {
-        font-size: 20px;
-      }
-    }
-    &:nth-child(2) {
-      width: 60%;
-    }
-    &:nth-child(3) {
-      width: 30%;
-    }
-  }
-  &.form-wrapper-hero {
-    font-weight: bold;
-    width: 100%;
-    height: 70px;
-    padding: 10px 0;
-    box-shadow: 0px 1px 0px 0px rgba(142, 77, 77, 0.1);
-    align-items: center;
-    span {
-      border: none;
-      background: none;
-      text-transform: uppercase;
-      font-size: 20px;
-      @media (max-width: $screen-max-lg) {
-        font-size: 18px;
-      }
-    }
-  }
-}
+<style scoped lang="scss">
+@import "./SubmissionsPage.scss";
 </style>

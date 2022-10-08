@@ -93,16 +93,5 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-.radar-component {
-  max-width: 500px;
-  height: auto;
-  margin: 0 auto;
-  @media (max-width: 768px) {
-    max-width: 100%;
-  }
-}
-canvas {
-  width: 100%;
-  height: 100%;
-}
+@import "./Radar.scss";
 </style>

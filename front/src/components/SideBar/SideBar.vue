@@ -19,6 +19,11 @@ export default {
       deleteCookie("access_token");
       router.go("/login");
     },
+    closeMenuInMobile() {
+      if (window.innerWidth < 768 && this.isOpen) {
+        this.hideMenu();
+      }
+    },
     onResize() {
       if (window.innerWidth < 1200) {
         this.hideMenu();
@@ -39,7 +44,11 @@ export default {
 <template>
   <header class="side-menu" :class="{ hidden: !isOpen }">
     <nav>
-      <router-link to="/administration/" class="logo">
+      <router-link
+        to="/administration/"
+        class="logo"
+        @click.prevent="closeMenuInMobile"
+      >
         <img src="@/assets/images/bigscreen.svg" alt="logo de BigScreen" />
       </router-link>
       <button
@@ -53,13 +62,21 @@ export default {
       </button>
       <ul>
         <li>
-          <router-link to="/administration/">Accueil</router-link>
+          <router-link to="/administration/" @click.prevent="closeMenuInMobile"
+            >Accueil</router-link
+          >
         </li>
         <li>
-          <router-link to="/administration/form">Questionnaire</router-link>
+          <router-link
+            to="/administration/form"
+            @click.prevent="closeMenuInMobile"
+            >Questionnaire</router-link
+          >
         </li>
         <li>
-          <router-link to="/administration/submissions"
+          <router-link
+            to="/administration/submissions"
+            @click.prevent="closeMenuInMobile"
             >Soumissions</router-link
           >
         </li>
