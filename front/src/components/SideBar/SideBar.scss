@@ -120,9 +120,9 @@ $box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
             transform: translate(0%, 2px);
           }
           &.router-link-active {
-            color: #8f73ff;
+            color: rgb(111 42 255);
             &::after {
-              background: #a172fe;
+              background: rgb(111 42 255);
               width: 100%;
             }
           }

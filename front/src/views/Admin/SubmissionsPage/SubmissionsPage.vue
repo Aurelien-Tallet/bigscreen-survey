@@ -8,6 +8,7 @@ export default {
     submissions: [],
   }),
   computed: {
+    // Sort the submissions by date to display the most recent first
     submissionsSortByDate() {
       return [...this.submissions].sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
@@ -15,6 +16,7 @@ export default {
     },
   },
   methods: {
+    // Display the details of a submission with accordion
     openAccordion($event) {
       const ul = $event.currentTarget.querySelector("ul");
       $event.currentTarget.classList.toggle("active");
@@ -24,6 +26,7 @@ export default {
         ul.style.maxHeight = ul.scrollHeight + "px";
       }
     },
+    // Display a date in a readable format
     formatDateToFrenchUsing(date) {
       return new Date(date).toLocaleDateString("fr-FR", {
         year: "numeric",
@@ -33,6 +36,7 @@ export default {
     },
   },
   async created() {
+    // Get all submissions for the form with id = 1
     this.form = await this.$FormDataService.getSubmission(1);
     this.submissions = this.form;
   },

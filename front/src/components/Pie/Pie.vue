@@ -10,6 +10,7 @@ export default {
     },
   },
   data: () => ({
+    // Set some default colors for the chart
     colors: [
       "#5DD9C1",
       "#FFB64D",
@@ -39,6 +40,7 @@ export default {
     },
   }),
   methods: {
+    // Pick randomly a color from the colors array and delete it to avoid duplicates
     pickRandomColor() {
       const randomColor =
         this.colors[Math.floor(Math.random() * this.colors.length)];
@@ -47,12 +49,15 @@ export default {
     },
   },
   created() {
+    // Get all labels from the data to display them in the chart
     this.chart.labels = this.data.choices.map(({ response }) => response);
+
+    // Get all value from the data to display them in the chart
     this.chart.datasets[0].data = this.data.choices.map(
       ({ id }) =>
         this.data.responses.filter(({ choices }) => choices[0].id === id).length
     );
-
+    // Associate a color to each data
     this.chart.datasets[0].backgroundColor = this.data.choices.map(() => {
       return this.pickRandomColor();
     });

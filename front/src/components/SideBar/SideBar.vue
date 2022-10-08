@@ -13,17 +13,20 @@ export default {
   },
   methods: {
     ...userMapActions(["setToken"]),
+    // use store to set if the menu is open or not (responsive)
     ...menuMapActions(["toggleMenu", "hideMenu", "showMenu"]),
     logout() {
       this.setToken(null);
       deleteCookie("access_token");
       router.go("/login");
     },
+    // toggle the menu when user click on navigation link (in mobile)
     closeMenuInMobile() {
       if (window.innerWidth < 768 && this.isOpen) {
         this.hideMenu();
       }
     },
+    // hide or show the menu on resize
     onResize() {
       if (window.innerWidth < 1200) {
         this.hideMenu();

@@ -57,12 +57,15 @@ export default {
     ],
   }),
   computed: {
+    // Check if each chart has data to display them
     isAllChartsLoaded() {
       return this.charts.every(({ data }) => data !== null);
     },
+    // Get only 'Pie' charts
     allPieCharts() {
       return this.charts.filter(({ type }) => type === "Pie");
     },
+    // Associate all data from 'radar' charts to hydrate the radar component
     groupQuestionsForRadar() {
       const questions = this.charts.filter(({ type }) => type === "radar");
       return questions.map(({ data }) => data);
@@ -90,7 +93,11 @@ export default {
         <h2>Équipements</h2>
       </div>
       <div class="pie-chart-wrapper">
-        <div class="pie-chart home-chart" v-for="chart in allPieCharts" :key="chart.id">
+        <div
+          class="pie-chart home-chart"
+          v-for="chart in allPieCharts"
+          :key="chart.id"
+        >
           <div class="pie-chart-header">
             <h2>{{ chart.data.name }}</h2>
             <p>{{ chart.data.body }}</p>

@@ -8,7 +8,7 @@ export default createStore({
   modules: {
     user,
     form,
-    menu
+    menu,
   },
   state: {
     // ...

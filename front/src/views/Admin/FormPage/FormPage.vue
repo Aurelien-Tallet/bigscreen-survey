@@ -6,11 +6,13 @@ export default {
     form: [],
   }),
   computed: {
+    // Have all the questions been answered
     questions() {
       return this.form.questions;
     },
   },
   async created() {
+    // Get all data about the first form (id = 1)
     this.form = await this.$FormDataService.get(1);
   },
   components: { BackLayout },
