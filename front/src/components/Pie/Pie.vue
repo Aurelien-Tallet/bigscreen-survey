@@ -74,7 +74,6 @@ export default {
         },
       },
     });
-    console.log(this.chart);
   },
 };
 </script>
