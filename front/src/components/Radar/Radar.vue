@@ -1,5 +1,6 @@
 <script>
 import Chart from "chart.js/auto";
+import { createWebHistory } from "vue-router";
 export default {
   name: "radar-component",
   props: {
@@ -9,6 +10,7 @@ export default {
     },
   },
   data: () => ({
+    instanceRadar: null,
     chart: {
       labels: [],
       datasets: [
@@ -34,25 +36,48 @@ export default {
           responses.reduce((acc, { response }) => acc + parseInt(response), 0) /
           responses.length
       ),
+    splitText(text) {
+      const words = text.toLowerCase().split("pour")[1].split(" ");
+      words.pop();
+      let label = [];
+      for (let i = 0; i < words.length; i += 2) {
+        label.push(words.slice(i, i + 2).join(" "));
+      }
+      return label;
+    },
   },
   created() {
-    this.chart.labels = this.data.map(({ body }) => body);
+    this.chart.labels = this.data.map(({ body }) => this.splitText(body));
     this.chart.datasets[0].data = this.getMeanForEachResponses(this.data);
   },
   mounted() {
     const options = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        r: {
+          pointLabels: {
+            font: {
+              size: 12,
+            },
+          },
+        },
+      },
       scale: {
         min: 0,
         max: 5,
         ticks: {
           stepSize: 1,
           font: {
-            size: 10,
+            size: 16,
           },
         },
       },
     };
-    const radarChart = new Chart(this.$refs.radarChart, {
+    this.instanceRadar = new Chart(this.$refs.radarChart, {
       type: "radar",
       data: this.chart,
       options: options,
@@ -63,14 +88,15 @@ export default {
 
 <template>
   <div class="radar-component">
-    <canvas ref="radarChart" id="radarChart" width="800" height="800"></canvas>
+    <canvas ref="radarChart" id="radarChart" width="600" height="600"></canvas>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .radar-component {
-  //   max-width: 100px;
+  max-width: 500px;
   height: auto;
+  margin: 0 auto;
 }
 canvas {
   width: 100%;

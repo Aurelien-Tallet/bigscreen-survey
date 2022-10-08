@@ -26,6 +26,7 @@ export default {
       "#FFDC5E",
       "#F9F871",
     ],
+    instancePie: null,
     chart: {
       labels: [],
       datasets: [
@@ -38,7 +39,6 @@ export default {
     },
   }),
   methods: {
-    randomNum: () => Math.floor(Math.random() * (235 - 52 + 1) + 52),
     pickRandomColor() {
       const randomColor =
         this.colors[Math.floor(Math.random() * this.colors.length)];
@@ -58,7 +58,7 @@ export default {
     });
   },
   mounted() {
-    const pieChart = new Chart(this.$refs.pieChart, {
+    this.instancePie = new Chart(this.$refs.pieChart, {
       type: "pie",
       data: this.chart,
       options: {
@@ -81,14 +81,52 @@ export default {
 
 <template>
   <div class="pie-component">
-    <canvas ref="pieChart" id="pieChart" width="400" height="400"></canvas>
+    <div class="pie-component-canvas">
+      <canvas ref="pieChart" id="pieChart" width="400" height="400"></canvas>
+    </div>
+    <div class="legends">
+      <div
+        v-for="(choice, index) in data.choices"
+        :key="choice.id"
+        class="legend"
+      >
+        <div
+          class="legend-color"
+          :style="{ backgroundColor: chart.datasets[0].backgroundColor[index] }"
+        ></div>
+        <p>{{ choice.response }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .pie-component {
-  // max-width: 500px;
+  padding: 15px;
   height: auto;
+  &-canvas {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+  .legends {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .legend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2px;
+    font-size: 14px;
+    font-style: italic;
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+  }
 }
 canvas {
   width: 100%;

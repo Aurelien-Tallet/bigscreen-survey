@@ -111,20 +111,21 @@ export default {
       </nav>
     </header>
     <main class="main">
+      <h1>Statistiques des réponses au sondage</h1>
       <div v-if="isAllChartsLoaded" class="chart-wrapper">
-        <div class="quality-header">
-          <h2>Qualité de l'expérience</h2>
-          <p>
-            Les résultats ci-dessous sont basés sur les réponses des
-            utilisateurs à la question « Comment évaluez-vous votre expérience ?
-            »
-          </p>
+        <div class="section-header">
+          <h2>Qualitée</h2>
+        </div>
+        <div class="radar-chart">
           <Radar :data="groupQuestionsForRadar" />
+        </div>
+        <div class="section-header">
+          <h2>Équipements</h2>
         </div>
         <div class="pie-chart-wrapper">
           <div class="pie-chart" v-for="chart in allPieCharts" :key="chart.id">
             <div class="pie-chart-header">
-              <p>{{ chart.data.name }}</p>
+              <h2>{{ chart.data.name }}</h2>
               <p>{{ chart.data.body }}</p>
             </div>
             <Pie :data="chart.data" />

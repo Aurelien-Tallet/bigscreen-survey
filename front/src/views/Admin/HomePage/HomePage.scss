@@ -1,18 +1,46 @@
 $nav-width: 260px;
 $nav-fs: 24px;
+$box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+  rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 .chart-wrapper {
   width: 100%;
+  .radar-chart {
+    background: white;
+    max-width: 50%;
+    padding: 15px;
+    min-width: 300px;
+    border-radius: 7px;
+    display: block;
+    margin: 40px auto;
+    box-shadow: $box-shadow;
+  }
   .pie-chart-wrapper {
     display: flex;
-    flex: 0 0 33.333333%;
+    justify-content: space-around;
+    flex-wrap: wrap;
     gap: 20px;
-    padding: 20px;
+    padding: 40px;
     .pie-chart {
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+      width: calc(100% / 3 - 20px);
+      min-width: 300px;
+      border-radius: 7px;
+      box-shadow: $box-shadow;
+      &-header {
+        height: 100px;
+        padding: 15px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        h2 {
+          font-size: 24px;
+          margin-bottom: 10px;
+          color: black;
+          font-weight: bold;
+        }
+        p {
+          font-size: 16px;
+          color: black;
+        }
+      }
     }
   }
 }
@@ -88,5 +116,21 @@ $nav-fs: 24px;
   .main {
     max-width: calc(100% - $nav-width);
     height: 100%;
+    padding: 50px 0;
+    h1 {
+      font-size: 40px;
+      max-width: calc(100% - 80px);
+      margin: 40px auto;
+    }
+    .section-header {
+      max-width: calc(100% - 80px);
+      margin: auto;
+      font-size: 28px;
+      padding: 10px;
+      color: black;
+      box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.1);
+      text-transform: uppercase;
+      font-weight: 900;
+    }
   }
 }
