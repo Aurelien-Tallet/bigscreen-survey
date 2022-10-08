@@ -15,13 +15,16 @@ $eerie-black: #141416;
   border-radius: 9999999999px;
 }
 
+//MEDIAS
+$screen-max-md: 767px;
+
 //TITLES & TEXTS
 .page-title{
   font-size: 30px;
   color: black;
   margin-bottom: 60px;
   text-align: center;
-  @media (max-width: 767px){
+  @media (max-width: $screen-max-md){
     display: none;
   }
 }

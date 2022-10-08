@@ -11,7 +11,7 @@
     color: black;
     padding: 0 50px;
 
-    @media (max-width: 767px){
+    @media (max-width: $screen-max-md){
       padding: 0 15px;
     }
 
@@ -49,7 +49,7 @@
       width: calc(100% - 100px);
       background-color: $grey;
 
-      @media (max-width: 767px){
+      @media (max-width: $screen-max-md){
         width: 100%;
       }
     }
@@ -65,7 +65,7 @@
     justify-content: center;
     min-height: calc(100vh - $navHeight - $footerHeight);
 
-    @media (max-width: 767px){
+    @media (max-width: $screen-max-md){
       padding: 0 0 60px 0;
       justify-content: initial;
       min-height: initial;
@@ -76,7 +76,7 @@
   &__footer {
     background-color: #141416;
     color: white;
-    @media (max-width: 767px){
+    @media (max-width: $screen-max-md){
       .container{
         .Footer_socials__2zt5G{
           margin-bottom: 40px;
