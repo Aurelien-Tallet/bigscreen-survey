@@ -17,6 +17,8 @@ class SubmissionSeeder extends Seeder
      */
     public function run()
     {
+        //Number of submissions to generate
+        $num = 5;
 //        Get the form
         $form = Form::all()->first()->with('questions', 'questions.choices', 'questions.type')->get();
 
@@ -24,7 +26,7 @@ class SubmissionSeeder extends Seeder
         $questions = $form->pluck('questions')->flatten();
 
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= $num; $i++) {
             $Responses = [];
             foreach ($questions as $question) {
                 $type = $question['type']['name'];
