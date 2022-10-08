@@ -107,8 +107,11 @@ export default {
   &-canvas {
     max-width: 250px;
     margin: 0 auto;
-    @media (max-width: 768px) {
-      max-width: 100%;
+    @media (max-width: $screen-max-sm) {
+      max-width: 50%;
+    }
+    @media (max-width: $screen-max-xs) {
+      max-width: 70%;
     }
   }
   .legends {

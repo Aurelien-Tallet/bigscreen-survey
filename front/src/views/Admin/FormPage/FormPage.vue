@@ -102,7 +102,7 @@ li {
     display: block;
     height: auto;
     line-height: 1.2;
-    @media (max-width: 1200px) {
+    @media (max-width: $screen-max-lg) {
       font-size: 16px;
     }
     &:nth-child(1) {
@@ -110,7 +110,7 @@ li {
       font-size: 23px;
       font-weight: bold;
       text-align: center;
-      @media (max-width: 1200px) {
+      @media (max-width: $screen-max-lg) {
         font-size: 20px;
       }
     }
@@ -132,7 +132,7 @@ li {
       background: none;
       text-transform: uppercase;
       font-size: 22px;
-      @media (max-width: 1200px) {
+      @media (max-width: $screen-max-lg) {
         font-size: 18px;
       }
     }
