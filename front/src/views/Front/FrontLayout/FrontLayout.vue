@@ -114,7 +114,7 @@ export default {
             </div>
           </div>
           <div class="Footer_col__1VR2s">
-            <div class="Footer_category__3prEp">follow us</div>
+            <div class="Footer_category__3prEp">suivez-nous</div>
             <div class="Footer_socials__2zt5G">
               <a
                   class="Footer_social__3k5Qz"
@@ -214,21 +214,20 @@ export default {
                   ></path>
                 </g>
               </svg>
-              JOIN THE DISCORD</a
+              DISCORD</a
             >
           </div>
           <div class="Footer_col__1VR2s">
             <div class="Footer_category__3prEp">newsletter</div>
             <div class="Footer_info__TSamq">
-              Subscribe to our newsletter so you don't miss out on special events,
-              updates, and more!
+              Abonnez-vous à notre newsletter pour ne rien manquer des événements spéciaux, des mises à jour et plus encore !
             </div>
             <a
                 class="button-stroke"
                 href="http://news.bigscreenvr.com"
                 target="_blank"
                 rel="noreferrer"
-            >Sign Up</a
+            >S'abonner</a
             >
           </div>
         </div>
