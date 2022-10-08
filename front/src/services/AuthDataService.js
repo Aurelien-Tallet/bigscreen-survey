@@ -1,5 +1,6 @@
 import axiosInstance from "@/api";
 
+// Authentication requests helper
 class AuthDataService {
   async login({ email, password }) {
     return (

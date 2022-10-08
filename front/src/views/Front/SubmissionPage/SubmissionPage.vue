@@ -36,18 +36,25 @@ export default {
 
 <template>
   <FrontLayout name="submission-page">
-    <h1 class="page-title">Hey 👋 Heureux de te revoir, voici tes réponses : </h1>
+    <!--    PAGE TITLE-->
+    <h1 class="page-title">
+      Hey 👋 Heureux de te revoir, voici tes réponses :
+    </h1>
+
+    <!--    Response form-->
     <div class="questions-form">
+      <!--    Response List-->
       <ul class="questions-list">
+        <!--     Reponses-->
         <Response
-            v-for="(question, i) in responses"
-            :key="i"
-            :data="question"
-            :questionIndex="i"
-            :activeQuestion="activeQuestion"
-            :questionsLength="responses.length"
-            @incrementIndex="activeQuestion++"
-            @decrementIndex="activeQuestion--"
+          v-for="(question, i) in responses"
+          :key="i"
+          :data="question"
+          :questionIndex="i"
+          :activeQuestion="activeQuestion"
+          :questionsLength="responses.length"
+          @incrementIndex="activeQuestion++"
+          @decrementIndex="activeQuestion--"
         />
       </ul>
     </div>

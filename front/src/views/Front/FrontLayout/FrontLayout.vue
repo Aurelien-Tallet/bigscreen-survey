@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 
 export default {
   name: "front-layout",
+  // Layout props
   props: {
     name: {},
     showNav:{
@@ -17,6 +18,7 @@ export default {
 
 <template>
   <div class="AppLayout">
+<!--    LAYOUT NAV-->
     <nav class="AppLayout__nav" v-if="showNav">
       <ul class="nav-links">
         <li class="nav-link logo">
@@ -29,9 +31,15 @@ export default {
         </li>
       </ul>
     </nav>
+    <!--    LAYOUT MAIN-->
     <main :class="name" class="AppLayout__main">
+
+      <!--    LAYOUT SLOT-->
       <slot></slot>
+
     </main>
+
+    <!--    LAYOUT FOOTER-->
     <footer v-if="showFooter">
       <div class="AppLayout__footer Footer_body__2HRIA">
         <div class="container Footer_container__1YkT_">
