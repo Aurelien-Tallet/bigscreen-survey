@@ -1,7 +1,8 @@
 import axios from "axios";
 import store from "../store/modules/user";
+import ApiDataService from "@/services/ApiDataService";
+
 // AXIOS HELPER
-console.log(import.meta.env);
 const instance = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
   headers: {

@@ -24,6 +24,11 @@ Route::get('/submission/{uuid}', [SubmissionController::class, 'show']);
 Route::get('/forms/{id}', [FormController::class, 'show']);
 Route::post('/forms/{id}', [FormController::class, 'submit']);
 
+//PING
+Route::get('/ping', function () {
+    return response("BigscreenSurvey's API is online", 200)->header('Content-Type', 'text/plain');
+});
+
 //PRIVATE API ROUTES
 Route::prefix('data')->group(function () {
     Route::get('question/{id}', [QuestionController::class, 'getResponses'])->middleware('auth:sanctum');
