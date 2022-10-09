@@ -1,11 +1,11 @@
 <script>
 import Question from "@/components/Question/Question.vue";
-import { createNamespacedHelpers } from "vuex";
+import {createNamespacedHelpers} from "vuex";
 import FrontLayout from "@/views/Front/FrontLayout/FrontLayout.vue";
 import ConfettiGenerator from "confetti-js";
 import ConfettiCanvas from "@/components/ConfettiCanvas/ConfettiCanvas.vue";
 
-const { mapActions, mapGetters } = createNamespacedHelpers("form");
+const {mapActions, mapGetters} = createNamespacedHelpers("form");
 
 export default {
   name: "form-page",
@@ -20,6 +20,8 @@ export default {
       activeQuestion: 0,
       questions: [],
       origin: window.location.origin,
+      nodata: true,
+      errorMessage:"",
     };
   },
   methods: {
@@ -35,8 +37,8 @@ export default {
       if (this.$store.getters["form/isAllQuestionsValid"]) {
         try {
           const request = await this.$FormDataService.submit(
-            { questions: this.$store.getters["form/questionsResponses"] },
-            this.form.id
+              {questions: this.$store.getters["form/questionsResponses"]},
+              this.form.id
           );
           this.submission = request.submission;
           this.$refs.confetti.render();
@@ -53,12 +55,27 @@ export default {
 
   async created() {
     // Get form data through laravel's API
-    this.form = await this.$FormDataService.get(1);
-    this.questions = this.form.questions;
-    this.questions.forEach((el) => {
-      // Setup all question in form's store
-      this.setQuestionComponent({ id: el.id, valid: false });
-    });
+    try {
+      this.form = await this.$FormDataService.get(1);
+      this.questions = this.form.questions;
+      this.questions.forEach((el) => {
+        // Setup all question in form's store
+        this.setQuestionComponent({ id: el.id, valid: false });
+      });
+      this.nodata = false;
+    } catch (e) {
+      switch (e.request.status) {
+        case 404:
+          this.errorMessage =[ "Oops ! Ce formulaire n'a pas l'air d'exister 🤔"]
+          break;
+        default:
+          this.errorMessage = [
+            "Une erreur interne est survenu 😱",
+            "Merci de réessayer ultérieurement",
+          ];
+          break;
+      }
+    }
   },
 };
 </script>
@@ -66,29 +83,29 @@ export default {
 <template>
   <FrontLayout name="form-page">
     <!--    Confetti canvas-->
-    <ConfettiCanvas ref="confetti" />
+    <ConfettiCanvas ref="confetti"/>
 
     <!--    Form content-->
-    <form action="" class="questions-form" @submit.prevent="handleSubmit">
+    <form action="" v-if="!nodata" class="questions-form" @submit.prevent="handleSubmit">
       <!--    Questions list-->
       <ul class="questions-list">
         <Question
-          v-for="(question, i) in questions"
-          :key="i"
-          :data="question"
-          :questionIndex="i"
-          :activeQuestion="activeQuestion"
-          :questionsLength="questions.length"
-          @incrementIndex="activeQuestion++"
-          @decrementIndex="activeQuestion--"
+            v-for="(question, i) in questions"
+            :key="i"
+            :data="question"
+            :questionIndex="i"
+            :activeQuestion="activeQuestion"
+            :questionsLength="questions.length"
+            @incrementIndex="activeQuestion++"
+            @decrementIndex="activeQuestion--"
         />
       </ul>
 
       <!--    Submit button-->
       <button
-        :disabled=" !this.$store.getters['form/isAllQuestionsValid'] || isSubmitted "
-        class="cta"
-        type="submit" >
+          :disabled=" !this.$store.getters['form/isAllQuestionsValid'] || isSubmitted "
+          class="cta"
+          type="submit">
         Finaliser
       </button>
     </form>
@@ -98,13 +115,18 @@ export default {
       <p v-if="this.submission.length">
         Toute l’équipe de Bigscreen vous remercie pour votre engagement. Grâce à
         votre investissement, nous vous préparons une application toujours plus
-        facile à utiliser, seul ou en famille.<br />
+        facile à utiliser, seul ou en famille.<br/>
         Si vous désirez consulter vos réponse ultérieurement, vous pouvez
         consulter cette adresse:
         <a :href="`${origin}/my-submission/${submission}`" target="_blank">{{
-          `${origin}/my-submission/${submission}`
-        }}</a>
+            `${origin}/my-submission/${submission}`
+          }}</a>
       </p>
+    </div>
+
+    <!--    Error Message-->
+    <div class="error-data" v-if="nodata">
+      <p v-for="(line, i) in this.errorMessage" :key="i">{{ line }}</p>
     </div>
   </FrontLayout>
 </template>

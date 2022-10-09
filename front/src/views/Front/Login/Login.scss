@@ -1,33 +1,47 @@
-.form-login-container{
+.form-login-container {
   width: 320px;
   height: auto;
   margin: 0 auto;
-  .back-to-site{
+
+  .back-to-site {
     color: $purple;
   }
 }
-.form-login{
+
+.form-login {
   display: flex;
   flex-direction: column;
   padding: 30px 40px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin-bottom: 30px;
 
-  .brandlogo{
+  .form-message {
+    color: $ruby;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 20px;
+    margin-bottom: 15px;
+  }
+
+  .brandlogo {
     margin-bottom: 50px;
-    img{
+
+    img {
       filter: brightness(0);
     }
   }
-  .content{
+
+  .content {
     margin-bottom: 30px;
-    .input-wrapper{
-      label{
+
+    .input-wrapper {
+      label {
         display: inline-block;
         margin-bottom: 10px;
         color: $eerie-black;
       }
-      &:not(:last-child){
+
+      &:not(:last-child) {
         margin-bottom: 20px;
       }
     }
