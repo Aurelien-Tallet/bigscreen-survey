@@ -11,8 +11,12 @@ export default {
     activeQuestion: {
       type: Number,
     },
-    questionsLength: {},
-    questionIndex: {},
+    questionsLength: {
+      type: Number,
+    },
+    questionIndex: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -44,14 +48,12 @@ export default {
       }
     },
 
-
     //Go to previous question
     prevQuestion: function () {
       if (this.activeQuestion > 0 && this.active) {
         this.$emit("decrementIndex");
       }
     },
-
 
     //Display error / info message
     displayMessage: function () {
@@ -74,10 +76,8 @@ export default {
   },
 
   computed: {
-
     //Get all the getters from the store
     ...mapGetters(["isSubmitted"]),
-
 
     //Compute characters left
     charsLeft() {
@@ -132,12 +132,10 @@ export default {
     :class="{ hidden, active }"
     :style="{ zIndex }"
   >
-
     <!--    QUESTION CONTENT-->
     <div class="single-question__content">
       <h3 class="title">{{ this.data.name }}</h3>
       <label for="question-input" class="body">{{ this.data.body }}</label>
-
 
       <!--    QUESTION INPUT-->
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
@@ -187,7 +185,7 @@ export default {
       </div>
     </div>
 
-<!--    QUESTION FOOTER-->
+    <!--    QUESTION FOOTER-->
     <div class="single-question__footer">
       <div class="message" v-if="!isValid">{{ displayMessage() }}</div>
 

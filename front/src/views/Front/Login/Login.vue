@@ -1,19 +1,19 @@
 <script>
-import {createNamespacedHelpers} from "vuex";
-import {setCookie} from "@/utils/cookiesHelper";
+import { createNamespacedHelpers } from "vuex";
+import { setCookie } from "@/utils/cookiesHelper";
 import router from "@/router";
 import FrontLayout from "@/views/Front/FrontLayout/FrontLayout.vue";
 
-const {mapActions, mapGetters} = createNamespacedHelpers("user");
+const { mapActions } = createNamespacedHelpers("user");
 
 export default {
-  components: {FrontLayout},
+  components: { FrontLayout },
   data() {
     return {
       email: "",
       password: "",
       error: false,
-    }
+    };
   },
 
   methods: {
@@ -22,10 +22,10 @@ export default {
 
     //Login method
     async login() {
-      const {email, password} = this;
+      const { email, password } = this;
       try {
-        const res = await this.$AuthDataService.login({email, password});
-        const {access_token} = res.data;
+        const res = await this.$AuthDataService.login({ email, password });
+        const { access_token } = res.data;
 
         // Set user token in store
         this.setToken(access_token);
@@ -41,7 +41,7 @@ export default {
         // If request not valid, display error
         this.error = true;
       }
-    }
+    },
   },
   computed: {
     // Compute error bool
@@ -49,34 +49,44 @@ export default {
       return this.error;
     },
   },
-}
+};
 </script>
 
 <template>
   <FrontLayout :show-footer="false" :show-nav="false">
-<!--    Form login container-->
+    <!--    Form login container-->
     <div class="form-login-container">
-
       <!--    Form login -->
       <form @submit.prevent="login" class="form-login">
         <a href="/" class="brandlogo">
-          <img src="@/assets/images/bigscreen.svg" alt="logo de BigScreen"/>
+          <img src="@/assets/images/bigscreen.svg" alt="logo de BigScreen" />
         </a>
         <div class="content">
           <!--    Form inputs -->
           <div class="input-wrapper">
             <label>Adresse e-mail</label>
-            <input :class="{isError}" v-model="email" type="text" name="email">
+            <input
+              :class="{ isError }"
+              v-model="email"
+              type="text"
+              name="email"
+            />
           </div>
           <div class="input-wrapper">
             <label>Mot de passe</label>
-            <input :class="{isError}" v-model="password" type="password" name="password">
+            <input
+              :class="{ isError }"
+              v-model="password"
+              type="password"
+              name="password"
+            />
           </div>
         </div>
 
-
         <!--    Form error display-->
-        <div v-if="isError" class="form-message">Courriel ou mot de passe incorrect</div>
+        <div v-if="this.isError" class="form-message">
+          Courriel ou mot de passe incorrect
+        </div>
 
         <button class="cta" type="submit">SE CONNECTER</button>
       </form>

@@ -22,15 +22,15 @@ export default {
   methods: {
     // Display the details of a submission with accordion
     openAccordion($event) {
-      const ul = $event.currentTarget.querySelector("ul");
-      $event.currentTarget.classList.toggle("active");
+      const ul = $event.currentTarget.parentNode.querySelector("ul");
+      $event.currentTarget.parentNode.classList.toggle("active");
       if (ul.style.maxHeight) {
         ul.style.maxHeight = null;
       } else {
         ul.style.maxHeight = ul.scrollHeight + "px";
       }
     },
-    // Display a date in a readable format
+    // Display a date in a french format
     formatDate(date) {
       return new Date(date).toLocaleDateString("fr-FR", {
         year: "numeric",
@@ -58,9 +58,8 @@ export default {
         class="submission"
         v-for="submission in submissionsSortByDate"
         :key="submission.id"
-        @click.prevent="openAccordion"
       >
-        <div class="submission-header">
+        <div class="submission-header" @click.prevent="openAccordion">
           <h2>UUID : {{ submission.uuid }}</h2>
           <p>Date : {{ formatDate(submission.created_at) }}</p>
           <button class="open-accordion">

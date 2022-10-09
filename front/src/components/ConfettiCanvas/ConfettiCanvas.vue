@@ -2,25 +2,21 @@
 import ConfettiGenerator from "confetti-js";
 export default {
   name: "confetti-canvas",
-  props:{
-  },
   methods: {
     //Render the confettis
-    render(){
+    render() {
       this.confetti.render();
     },
     //Clear the confettis
-    clear(){
+    clear() {
       this.confetti.clear();
     },
-
   },
-  computed: {
-  },
+  computed: {},
 
   async mounted() {
     //Confetti INIT
-    const confettiSettings = {target: 'confetti'};
+    const confettiSettings = { target: "confetti" };
     this.confetti = new ConfettiGenerator(confettiSettings);
   },
 };
