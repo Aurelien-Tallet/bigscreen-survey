@@ -63,7 +63,7 @@ export default {
       return this.charts.every(({ data }) => data !== null) && this.loaded;
     },
     // Get only 'Pie' charts
-    getAllPieCharts() {
+    allPieCharts() {
       return this.charts.filter(({ type }) => type === "Pie");
     },
     // Associate all data from 'radar' charts to hydrate the radar component
@@ -75,7 +75,7 @@ export default {
   async created() {
     for (const chart of this.charts) {
       try {
-        const data = await this.$ChartDataService.get(chart.id);
+        const data = await this.$FormDataService.getResponses(chart.id);
         chart.data = data;
         if (this.charts.indexOf(chart) === this.charts.length - 1) {
           this.loaded = true;
@@ -104,7 +104,7 @@ export default {
       <div class="pie-chart-wrapper">
         <div
           class="pie-chart home-chart"
-          v-for="chart in getAllPieCharts"
+          v-for="chart in allPieCharts"
           :key="chart.id"
         >
           <div class="pie-chart-header">
