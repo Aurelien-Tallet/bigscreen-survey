@@ -135,7 +135,7 @@ export default {
     <!--    QUESTION CONTENT-->
     <div class="single-question__content">
       <h3 class="title">{{ this.data.name }}</h3>
-      <label for="question-input" class="body">{{ this.data.body }}</label>
+      <label :for="`question-input-${this.questionIndex}`" class="body">{{ this.data.body }}</label>
 
       <!--    QUESTION INPUT-->
       <div class="input-wrapper" v-if="this.data.type.name === 'textarea'">
@@ -145,7 +145,7 @@ export default {
           @input="updateQuestion"
           :disabled="isSubmitted"
           :tabindex="!active ? '-1' : ''"
-          id="question-input"
+          :id="`question-input-${this.questionIndex}`"
         />
         <p class="char-left">
           {{ charsLeft }} caractère{{ charsLeft > 1 ? "s" : "" }} restant{{
@@ -162,7 +162,7 @@ export default {
           @input="updateQuestion"
           :disabled="isSubmitted"
           :tabindex="!active ? '-1' : ''"
-          id="question-input"
+          :id="`question-input-${this.questionIndex}`"
         />
       </div>
       <div class="input-wrapper" v-else-if="this.data.type.name === 'choice'">
@@ -171,7 +171,7 @@ export default {
           @change="updateQuestion"
           :disabled="isSubmitted"
           :tabindex="!active ? '-1' : ''"
-          id="question-input"
+          :id="`question-input-${this.questionIndex}`"
         >
           <option disabled value="">Veuillez choisir une réponse</option>
           <option
