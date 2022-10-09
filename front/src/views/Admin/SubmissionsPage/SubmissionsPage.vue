@@ -5,6 +5,7 @@ export default {
   name: "SubmissionsPage",
   components: { BackLayout },
   data: () => ({
+    loaded: false,
     submissions: [],
   }),
   computed: {
@@ -13,6 +14,9 @@ export default {
       return [...this.submissions].sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
       );
+    },
+    isLoaded() {
+      return this.loaded && this.submissions.length > 0;
     },
   },
   methods: {
@@ -27,7 +31,7 @@ export default {
       }
     },
     // Display a date in a readable format
-    formatDateToFrenchUsing(date) {
+    formatDate(date) {
       return new Date(date).toLocaleDateString("fr-FR", {
         year: "numeric",
         month: "long",
@@ -37,15 +41,19 @@ export default {
   },
   async created() {
     // Get all submissions for the form with id = 1
-    this.form = await this.$FormDataService.getSubmission(1);
-    this.submissions = this.form;
+    try {
+      this.submissions = await this.$FormDataService.getSubmission(1);
+      this.loaded = true;
+    } catch (e) {
+      console.error(e);
+    }
   },
 };
 </script>
 
 <template>
   <BackLayout title="Toutes les soumissions des sondés">
-    <div class="submissions-wrapper">
+    <div class="submissions-wrapper" v-if="isLoaded">
       <div
         class="submission"
         v-for="submission in submissionsSortByDate"
@@ -54,7 +62,7 @@ export default {
       >
         <div class="submission-header">
           <h2>UUID : {{ submission.uuid }}</h2>
-          <p>Date : {{ formatDateToFrenchUsing(submission.created_at) }}</p>
+          <p>Date : {{ formatDate(submission.created_at) }}</p>
           <button class="open-accordion">
             <svg
               viewBox="0 0 467 257"
@@ -107,6 +115,9 @@ export default {
           </li>
         </ul>
       </div>
+    </div>
+    <div class="no-data" v-else>
+      <h1>Aucune soumission n'a été réalisée à ce jour !</h1>
     </div>
   </BackLayout>
 </template>

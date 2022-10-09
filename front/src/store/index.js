@@ -11,12 +11,19 @@ export default createStore({
     menu,
   },
   state: {
-    // ...
+    // ..
+    API_STATUS: false,
   },
   mutations: {
     // ...
+    SET_API_STATUS(state, payload) {
+      state.API_STATUS = payload;
+    },
   },
   actions: {
     // ...
+    SET_API_STATUS({ commit }, payload) {
+      commit("SET_API_STATUS", payload);
+    },
   },
 });

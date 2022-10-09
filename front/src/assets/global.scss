@@ -10,6 +10,8 @@ $light-purple: #8000ff;
 $dark-purple:#4100d0;
 $ruby: #D81159;
 $eerie-black: #141416;
+$box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+  rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 
 //PLACEHOLDERS
 %pills{
@@ -30,6 +32,18 @@ $screen-max-xs: 575px;
   text-align: center;
   @media (max-width: $screen-max-sm){
     display: none;
+  }
+}
+.no-data {
+  font-size: 32px;
+  color: $grey;
+  text-align: center;
+  margin-top: 50px;
+  box-shadow: $box-shadow;
+  padding: 15px;
+  border-radius: 10px;
+  @media (max-width: $screen-max-sm){
+    font-size: 18px;
   }
 }
 

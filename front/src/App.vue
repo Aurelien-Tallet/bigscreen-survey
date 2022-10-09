@@ -1,5 +1,4 @@
 <script>
-import { RouterLink, RouterView } from "vue-router";
 import ApiDataService from "@/services/ApiDataService";
 
 export default {
@@ -8,7 +7,7 @@ export default {
     try {
       const req = await ApiDataService.ping();
       if (req.status === 200) {
-        console.log(req.data);
+        this.$store.commit("SET_API_STATUS", true);
       }
     } catch (e) {
       console.error("API NOT FOUND");

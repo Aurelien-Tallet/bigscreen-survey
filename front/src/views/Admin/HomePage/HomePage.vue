@@ -12,6 +12,7 @@ export default {
     BackLayout,
   },
   data: () => ({
+    loaded: false,
     data: [],
     charts: [
       {
@@ -59,10 +60,10 @@ export default {
   computed: {
     // Check if each chart has data to display them
     isAllChartsLoaded() {
-      return this.charts.every(({ data }) => data !== null);
+      return this.charts.every(({ data }) => data !== null) && this.loaded;
     },
     // Get only 'Pie' charts
-    allPieCharts() {
+    getAllPieCharts() {
       return this.charts.filter(({ type }) => type === "Pie");
     },
     // Associate all data from 'radar' charts to hydrate the radar component
@@ -73,8 +74,16 @@ export default {
   },
   async created() {
     for (const chart of this.charts) {
-      const data = await this.$FormDataService.getResponses(chart.id);
-      chart.data = data;
+      try {
+        const data = await this.$ChartDataService.get(chart.id);
+        chart.data = data;
+        if (this.charts.indexOf(chart) === this.charts.length - 1) {
+          this.loaded = true;
+        }
+      } catch (e) {
+        console.error(e);
+        break;
+      }
     }
   },
 };
@@ -95,7 +104,7 @@ export default {
       <div class="pie-chart-wrapper">
         <div
           class="pie-chart home-chart"
-          v-for="chart in allPieCharts"
+          v-for="chart in getAllPieCharts"
           :key="chart.id"
         >
           <div class="pie-chart-header">
@@ -105,6 +114,9 @@ export default {
           <Pie :data="chart.data" />
         </div>
       </div>
+    </div>
+    <div class="no-data" v-else>
+      <h1>Aucune donnée disponible à la réalisation de statistiques</h1>
     </div>
   </BackLayout>
 </template>
