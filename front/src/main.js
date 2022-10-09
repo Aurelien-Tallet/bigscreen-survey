@@ -13,7 +13,6 @@ const app = createApp(App);
 app.use(router).use(store).mount("#app");
 
 app.config.globalProperties.$axios = axios;
-
 // Add all Data Services to the Vue instance to use them in all components
 app.config.globalProperties.$FormDataService = FormDataService;
 

@@ -13,6 +13,7 @@ export default defineConfig({
     },
   },
   plugins: [vue()],
+  envDir: "./",
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
