@@ -41,6 +41,9 @@
     position: absolute;
     pointer-events: none;
     transform: translateX(100vw) rotate(90deg);
+    @media(max-width: $screen-max-xs) {
+      transform: translateX(100vw);
+    }
     opacity: 0;
   }
 
